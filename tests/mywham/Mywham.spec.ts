@@ -1,5 +1,5 @@
 import{test,expect,Locator} from "@playwright/test";
-import { userData, WhamsearchData } from '../testdata.ts';
+import { userData, WhamsearchData } from '../../testdata.ts';
 test.describe.configure({ mode: 'serial' });
 
 test('verify client portal sign in', async ({ page })=>{

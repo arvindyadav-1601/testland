@@ -29,10 +29,19 @@ export default defineConfig({
   //grep: /@master/,
 
   projects: [
-   {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+    {
+    name: 'setup',
+    testMatch: '**/auth.setup.ts',
+  },
+  {
+    name: 'chrome',
+    use: {
+      ...devices['Desktop Chrome'],
+      channel: 'chrome',
+      storageState: '.playwright/.auth/user.json',
     },
+    dependencies: ['setup'],
+  },
     /*{
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },

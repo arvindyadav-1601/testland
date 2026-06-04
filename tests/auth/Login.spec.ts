@@ -13,3 +13,16 @@ test('verify public sign in', async ({ page })=>{
 test('verify real estate search', async ({ page }) => {
     await page.locator("div[class='col-md-10 col-12'] input[name='LastName']").fill("smith");
 */
+
+// tests/auth/auth.setup.ts
+import { test as setup } from '@playwright/test';
+import { env } from '../../config/env';
+
+setup('authenticate', async ({ page }) => {
+  await page.goto('/');
+  await page.getByPlaceholder('Username').fill(env.username);
+  await page.getByPlaceholder('Password').fill(env.password);
+  await page.getByRole('button', { name: 'Sign In' }).click();
+  await page.waitForURL('**/dashboard**');
+  await page.context().storageState({ path: '.playwright/.auth/user.json' });
+});
