@@ -14,15 +14,16 @@
   "dependencies": {
     "@faker-js/faker": "^10.4.0",
     "csv-parse": "^6.2.1",
+    "dotenv": "^17.4.2",
     "xlsx": "^0.18.5"
   },
   "scripts": {
-  "test":        "playwright test",
-  "test:chrome": "playwright test --project=chromium",
-  "test:headed": "playwright test --headed",
-  "test:debug":  "playwright test --debug",
-  "report":      "playwright show-report",
-  "allure:gen":  "allure generate allure-results --clean",
-  "allure:open": "allure open allure-results"
-}
+    "test": "playwright test",
+    "test:chrome": "playwright test --project=chromium",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "report": "playwright show-report",
+    "allure:gen": "allure generate allure-results --clean",
+    "allure:open": "allure open allure-results"
+  }
 }

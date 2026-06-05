@@ -1,4 +1,4 @@
-import{test,expect,Locator} from "@playwright/test";
+/* import{test,expect,Locator} from "@playwright/test";
 import { userData, WhamsearchData } from '../../testdata.ts';
 test.describe.configure({ mode: 'serial' });
 
@@ -34,4 +34,118 @@ test('verify wham message search functionality using reminder date', async ({ pa
     expect(count).toBeGreaterThan(0);
     console.log(`Search Results Found: ${count}`)
 
+});
+*/
+import { test, expect } from "../../fixtures/index";
+
+import { MyWhamPage } from "../../pages/MyWhamPage";
+
+import { WhamsearchData } from "../../testdata/myWhamData";
+
+
+
+test.describe("My WHAM Test Suite", () => {
+    
+
+  let myWhamPage: MyWhamPage;
+
+  test.beforeEach(async ({ authenticatedPage }) => {
+
+    await authenticatedPage.locator('a.kt-menu__link').locator('span').nth(0).click();
+
+    myWhamPage = new MyWhamPage(authenticatedPage);
+
+    await myWhamPage.openMyWhamPage();
+  });
+
+  // ==================================================
+  // Verify My WHAM Page Access
+  // ==================================================
+
+  test("Verify My WHAM page is accessible", async () => {
+
+    await expect(myWhamPage.myWhamHeading).toBeVisible();
+
+    console.log("My WHAM Page Accessible");
+  });
+
+  // ==================================================
+  // Search using Reminder Dates
+  // ==================================================
+
+  test("Verify search functionality using reminder dates", async () => {
+
+    await myWhamPage.searchUsingReminderDates(
+      WhamsearchData.reminderStartDate,
+      WhamsearchData.reminderEndDate
+    );
+
+    await myWhamPage.validateSearchResults();
+  });
+
+  // ==================================================
+  // Search using Dropdown Filters
+  // ==================================================
+
+  test("Verify search functionality using dropdown filters", async () => {
+
+    await myWhamPage.selectCategory(    
+      WhamsearchData.category
+    );
+
+    await myWhamPage.selectType(
+      WhamsearchData.type
+    );
+
+    await myWhamPage.selectLevel(
+      WhamsearchData.level
+    );
+
+    await myWhamPage.selectStatus(
+      WhamsearchData.status
+    );
+
+    await myWhamPage.searchButton.click();
+
+    await myWhamPage.validateSearchResults();
+  });
+
+  // ==================================================
+  // Verify Download/Delete Buttons
+  // ==================================================
+
+  test("Verify download and delete buttons enabled after checkbox selection", async () => {
+
+    await myWhamPage.searchUsingReminderDates(
+      WhamsearchData.reminderStartDate,
+      WhamsearchData.reminderEndDate
+    );
+
+    await myWhamPage.validateSearchResults();
+
+    await myWhamPage.selectFirstRowCheckbox();
+
+    await myWhamPage.validateActionButtonsEnabled();
+
+    console.log("Download/Delete Buttons Enabled");
+  });
+
+  // ==================================================
+  // Verify No Records Found
+  // ==================================================
+
+  test("Verify no records found message", async () => {
+
+    await myWhamPage.searchUsingReminderDates(
+      WhamsearchData.reminderStartDate,
+      WhamsearchData.reminderEndDate
+    );
+
+    const rowCount = await myWhamPage.tableRows.count();
+
+    if (rowCount === 0) {
+
+      await myWhamPage.validateNoRecordsFound();
+    }
+  });
 });

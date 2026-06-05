@@ -1,57 +1,71 @@
 import { defineConfig, devices } from '@playwright/test';
+import path from 'path';
+import fs from 'fs';
+
+// ── Auth state path (single source of truth) ─────────────────────────────────
+const AUTH_FILE = path.resolve(__dirname, '.playwright/.auth/user.json');
 
 export default defineConfig({
-  timeout: 30 * 1000,   //30000 ms(30 secs)
+
+  // ── General ────────────────────────────────────────────────────────────────
   testDir: './tests',
+  timeout: 30_000,          // 30 s per test action
   fullyParallel: false,
-  //retries: process.env.CI ? 2 : 0,
-  retries:1,
-  //workers: process.env.CI ? 1 : undefined,
+  retries: 1,
   workers: 1,
 
+  // ── Reporters ──────────────────────────────────────────────────────────────
   reporter: [
     ['html'],
     ['allure-playwright'],
     ['dot'],
-    ['list']
+    ['list'],
   ],
 
+  // ── Shared browser options ─────────────────────────────────────────────────
   use: {
+    baseURL: process.env.APP_URL ?? 'https://dev-qa2-cp.test.landnav.com/',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
-    //headless: false,
-    viewport: { width: 1280, height: 720 }, // Set default viewport size for consistency
-    ignoreHTTPSErrors: true, // Ignore SSL errors if necessary
-    permissions: ['geolocation'], // Set necessary permissions for geolocation-based tests
+    viewport: { width: 1280, height: 720 },
+    ignoreHTTPSErrors: true,
+    permissions: ['geolocation'],
   },
 
-  //grep: /@master/,
-
+  // ── Projects ───────────────────────────────────────────────────────────────
   projects: [
+    // 1️⃣  Auth setup — runs once, writes user.json
     {
-    name: 'setup',
-    testMatch: '**/auth.setup.ts',
-  },
-  {
-    name: 'chrome',
-    use: {
-      ...devices['Desktop Chrome'],
-      channel: 'chrome',
-      storageState: '.playwright/.auth/user.json',
-    },
-    dependencies: ['setup'],
-  },
-    /*{
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      name: 'setup',
+      testMatch: /auth[\\/]auth\.setup/,   // ✅ fixed: was missing escape + dot escape
     },
 
+
     {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    } */
+      name: 'login',
+      testMatch: /.*Login\.spec\.ts/,
+      use: {
+        storageState: undefined, // ✅ critical
+      },
+    },
+
+
+    // 2️⃣  Chrome — reuses saved auth state
+    {
+      name: 'chrome',
+      use: {
+        ...devices['Desktop Chrome'],
+        channel: 'chrome',
+        // ✅ Only load auth file if it already exists (prevents ENOENT on first run)
+        storageState: fs.existsSync(AUTH_FILE) ? AUTH_FILE : undefined,
+      },
+      dependencies: ['setup'],
+      // guarantees setup runs first every time
+
+      // ✅ EXCLUDE login tests here
+      testIgnore: [/.*Login\.spec\.ts/, /auth[\\/]auth\.setup/],
+
+    },
   ],
-
-
 });

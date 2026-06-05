@@ -1,0 +1,35 @@
+{
+  "cookies": [
+    {
+      "name": ".AspNetCore.Antiforgery.SEW525JQEnI",
+      "value": "CfDJ8C7PTrxFo_1EmAcJt2sLfLAtm1EIDNFxUPw8aezLT6zNKMOnJvn1SdirqoGOSlvVPhcwUmjIIreT7Jp1YfAfhsO0C4BAnk6ixmlEfHC-N7V6C07km6CYBn8TZ_tPzlSWIyhsycJa533NsxQiJ0TUxxI",
+      "domain": "dev-qa2-cp.test.landnav.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Strict"
+    },
+    {
+      "name": "Catalis",
+      "value": "CfDJ8C7PTrxFo_1EmAcJt2sLfLA8fI02Lh58r7vD1AtqoM2qd66wRo1V9FQhYC_UXqYY_iG9QU6o8dT5Q6JqFilr5NEKADMZvYb8btEs94IYSTmguMJW9-hhE8YXv-oL42yofglGz3G6TPxnF5VuD_Fnu__jEbGfwCaYqVFgcfPfvlUeRrkXgw_8d3b1XMoqy05RG86ihMQLOiHxKROtYTflVfJ2rvQZrrT9s3aJYomp5wZ2WLqoH-2Iqgrr3yFOZB3lgOxqgSeA4zAAdpIwKFkE7NGvLKlWgQBEZSp3SHLpjYFq8tJJNuUnCcn9_B97mOaF8dQSkcBiiqTEpaJft6GEky98RmmLfy0YVGELUcz--YhwBW-8WKit-I4D3vE4Lsbzrp03NHMiqGHq03u3OR9mNNm4iPqKS0N6sGmvYqWqBrou83ojvlGQG3q1i4cN5Z6peESbSM5XxQ4FCh_kn_kS80LCYLwVn3fXcZTLUJGbFJ-6YeOoTHHfY4IxEIHTCxhllWG39AQPu4mJZpVpg3TNiGsuV5XAAn7QtfnynD1Cwtg0iGspQjdrDejPAcEG8UT0dAoDa227SI-42yrYeYypDBA0IWwBqPgdXV3G2BHndSNsSppaUr1V-yutEoo6Rj35GggZUYkgbV2PkQ5CqzSl_hOtZXo-bVG0XOTZO0E-hj97fvwpFnqX0Tneg_j2wLQNLk-Z00rQry31P3U8niWrF4mcrjuFtpkPPbHj80Hfd4PZxtteV6jycQyHJVln1DKlStTTMpg2_-nZEe1enLyu05WBrmWrwTNaxU0t1PqUn0_4zmeKhlnYI2mP_Cu-M7KbLAWx97N0sBC4mu06Qx34sKM",
+      "domain": "dev-qa2-cp.test.landnav.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": ".AspNetCore.Session",
+      "value": "CfDJ8C7PTrxFo%2F1EmAcJt2sLfLBxWveKhF32CVwFCNtFFcABcPEEV%2BCYQ4kv6lW%2B%2BTHfx8Zdpw1lQfX%2F43q6hf%2BLjRQAoLI6oejmPgZjeBsojcFXJH1jR06B8FMCwQCfYzBUCBXV9xr1yZ7QzxF0LWnoedvkjzrA1KccLu7yTVqJtI79",
+      "domain": "dev-qa2-cp.test.landnav.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": []
+}

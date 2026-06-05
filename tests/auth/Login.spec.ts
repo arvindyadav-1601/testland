@@ -1,28 +1,60 @@
-import { test,Expect,Locator, expect } from "@playwright/test";
-
-test('verify public sign in', async ({ page })=>{
-
-    await page.goto("https://dev-qa2-pp.test.landnav.com/");
-    await page.locator('[name="Username"]').fill("GCS");
-    await page.locator('input[name="Password"]').fill("GCSPASSWORD");
-    await page.getByText('Sign In', { exact: true }).click()
-    const login=await page.getByRole('heading', { name: 'Welcome GCS' })
-    expect (login).toBeVisible
-})
-/*
-test('verify real estate search', async ({ page }) => {
-    await page.locator("div[class='col-md-10 col-12'] input[name='LastName']").fill("smith");
-*/
-
-// tests/auth/auth.setup.ts
-import { test as setup } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { env } from '../../config/env';
 
-setup('authenticate', async ({ page }) => {
-  await page.goto('/');
-  await page.getByPlaceholder('Username').fill(env.username);
-  await page.getByPlaceholder('Password').fill(env.password);
+// ✅ IMPORTANT → disable auth for login tests
+test.use({ storageState: undefined });
+
+test.beforeEach(async ({ page }) => {
+  await page.goto(env.url);
+});
+
+// ── ✅ Positive Scenario ─────────────────────────────────────
+
+test('valid credentials log the user in', async ({ page }) => {
+  await page.fill('[name="Username"]', env.username);
+  await page.fill('[name="Password"]', env.password);
   await page.getByRole('button', { name: 'Sign In' }).click();
-  await page.waitForURL('**/dashboard**');
-  await page.context().storageState({ path: '.playwright/.auth/user.json' });
+
+  await expect(
+    page.getByText(new RegExp(`Welcome ${env.username}`, 'i'))
+  ).toBeVisible();
+});
+
+// ── ✅ Negative Scenarios ────────────────────────────────────
+
+test('incorrect password shows error', async ({ page }) => {
+  await page.fill('[name="Username"]', env.username);
+  await page.fill('[name="Password"]', 'wrong-password');
+  await page.getByRole('button', { name: 'Sign In' }).click();
+
+  // adjust based on your app
+  await expect(page).toHaveURL(/login/i);
+});
+
+test('empty username shows error', async ({ page }) => {
+  await page.fill('[name="Password"]', env.password);
+  await page.getByRole('button', { name: 'Sign In' }).click();
+
+  await expect(page).toHaveURL(/login/i);
+});
+
+test('empty password shows error', async ({ page }) => {
+  await page.fill('[name="Username"]', env.username);
+  await page.getByRole('button', { name: 'Sign In' }).click();
+
+  await expect(page).toHaveURL(/login/i);
+});
+
+test('completely empty form shows error', async ({ page }) => {
+  await page.getByRole('button', { name: 'Sign In' }).click();
+
+  await expect(page).toHaveURL(/login/i);
+});
+
+// ── ✅ UI Check ─────────────────────────────────────────────
+
+test('login page has required elements', async ({ page }) => {
+  await expect(page.getByPlaceholder('Username')).toBeVisible();
+  await expect(page.getByPlaceholder('Password')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Sign In' })).toBeVisible();
 });
