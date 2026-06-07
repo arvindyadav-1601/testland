@@ -11,8 +11,8 @@ export default defineConfig({
   testDir: './tests',
   timeout: 30_000,          // 30 s per test action
   fullyParallel: false,
-  retries: 1,
-  workers: 1,
+  retries: 0,
+  workers: 4,
 
   // ── Reporters ──────────────────────────────────────────────────────────────
   reporter: [

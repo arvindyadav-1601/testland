@@ -1,64 +1,267 @@
-import { Page, Locator, expect } from '@playwright/test';
+import {
+    Page,
+    Locator
+} from "@playwright/test";
 
-export class LoginPage {
-  private readonly page: Page;
-    
-  // Locators
-  private readonly username: Locator;
-  private readonly password: Locator;
-  private readonly btnLogin: Locator;
+import { BasePage } from "./BasePage";
 
-  constructor(page: Page) {
-    this.page = page;
+export class LoginPage extends BasePage {
 
-    // Initialize locators
-    this.username = page.getByRole('textbox', { name: 'Username' });
-    this.password = page.getByRole('textbox', { name: 'Password' });
-    this.btnLogin = page.getByRole('button', { name: 'Sign In' });
-  }
+    // =====================================================
+    // LOGIN LOCATORS
+    // =====================================================
 
-  // Navigate to URL
-  async goto(url: string): Promise<void> {
-    await this.page.goto(url);
-  }
+    readonly usernameInput: Locator;
 
-  // Fill username
-  async enterUsername(user: string): Promise<void> {
-    await this.username.fill(user);
-  }
+    readonly passwordInput: Locator;
 
-  // Fill password
-  async enterPassword(pass: string): Promise<void> {
-    await this.password.fill(pass);
-  }
+    readonly loginButton: Locator;
 
-  // Click login button
-  async clickLogin(): Promise<void> {
-    await this.btnLogin.click();
-  }
+    readonly loginErrorMessage: Locator;
 
-  // Full login action
-  async login(username: string, password: string): Promise<void> {
-    await this.enterUsername(username);
-    await this.enterPassword(password);
-    await this.clickLogin();
-  }
+    // =====================================================
+    // CONSTRUCTOR
+    // =====================================================
 
-  // Assertions
-  async verifyLoginPageLoaded(): Promise<void> {
-    await expect(this.username).toBeVisible();
-    await expect(this.password).toBeVisible();
-    await expect(this.btnLogin).toBeVisible();
-  }
+    constructor(page: Page) {
 
-  // Example: verify successful login (adjust selector)
-  async verifyLoginSuccess(): Promise<void> {
-    await expect(this.page).toHaveURL(/dashboard|home/i);
-  }
+        super(page);
 
-  // Example: verify login failure message (adjust selector/text)
-  async verifyLoginError(): Promise<void> {
-    const errorMsg = this.page.locator('text=Invalid username or password');
-    await expect(errorMsg).toBeVisible();
-  }
+        // =================================================
+        // USERNAME INPUT
+        // =================================================
+
+        this.usernameInput =
+            page.getByRole(
+                "textbox",
+                { name: "Username" }
+            );
+
+        // =================================================
+        // PASSWORD INPUT
+        // =================================================
+
+        this.passwordInput =
+            page.getByRole(
+                "textbox",
+                { name: "Password" }
+            );
+
+        // =================================================
+        // LOGIN BUTTON
+        // =================================================
+
+        this.loginButton =
+            page.getByRole(
+                "button",
+                { name: "Sign In" }
+            );
+
+        // =================================================
+        // LOGIN ERROR MESSAGE
+        // =================================================
+
+        this.loginErrorMessage =
+            page.locator(
+                "text=Invalid username or password"
+            );
+    }
+
+    // =====================================================
+    // PAGE NAVIGATION
+    // =====================================================
+
+    async goto(
+        url: string
+    ): Promise<void> {
+
+        await this.navigateTo(url);
+    }
+
+    // =====================================================
+    // LOGIN ACTIONS
+    // =====================================================
+
+    async enterUsername(
+        username: string
+    ): Promise<void> {
+
+        await this.fillInput(
+            this.usernameInput,
+            username
+        );
+    }
+
+    async enterPassword(
+        password: string
+    ): Promise<void> {
+
+        await this.fillInput(
+            this.passwordInput,
+            password
+        );
+    }
+
+    async clickLoginButton(): Promise<void> {
+
+        await this.clickElement(
+            this.loginButton
+        );
+    }
+
+    // =====================================================
+    // CLEAR METHODS
+    // =====================================================
+
+    async clearUsername(): Promise<void> {
+
+        await this.clearAndFill(
+            this.usernameInput,
+            ""
+        );
+    }
+
+    async clearPassword(): Promise<void> {
+
+        await this.clearAndFill(
+            this.passwordInput,
+            ""
+        );
+    }
+
+    async clearLoginFields(): Promise<void> {
+
+        await this.clearUsername();
+
+        await this.clearPassword();
+    }
+
+    // =====================================================
+    // COMPLETE LOGIN FLOW
+    // =====================================================
+
+    async login(
+        username: string,
+        password: string
+    ): Promise<void> {
+
+        await this.logStep(
+            "Entering username"
+        );
+
+        await this.enterUsername(
+            username
+        );
+
+        await this.logStep(
+            "Entering password"
+        );
+
+        await this.enterPassword(
+            password
+        );
+
+        await this.logStep(
+            "Clicking login button"
+        );
+
+        await this.clickLoginButton();
+    }
+
+    async loginAndValidate(
+        username: string,
+        password: string
+    ): Promise<void> {
+
+        await this.login(
+            username,
+            password
+        );
+
+        await this.verifyLoginSuccess();
+    }
+
+    // =====================================================
+    // VALIDATION METHODS
+    // =====================================================
+
+    async verifyLoginPageLoaded(): Promise<void> {
+
+        await this.validateElementVisible(
+            this.usernameInput
+        );
+
+        await this.validateElementVisible(
+            this.passwordInput
+        );
+
+        await this.validateElementVisible(
+            this.loginButton
+        );
+    }
+
+    async verifyLoginSuccess(): Promise<void> {
+
+        await this.waitForPageLoad();
+
+        await this.validateUrl(
+            /dashboard|home/i
+        );
+    }
+
+    async verifyLoginError(): Promise<void> {
+
+        await this.validateElementVisible(
+            this.loginErrorMessage
+        );
+    }
+
+    // =====================================================
+    // FIELD VALIDATIONS
+    // =====================================================
+
+    async validateUsernameFieldVisible(): Promise<void> {
+
+        await this.validateElementVisible(
+            this.usernameInput
+        );
+    }
+
+    async validatePasswordFieldVisible(): Promise<void> {
+
+        await this.validateElementVisible(
+            this.passwordInput
+        );
+    }
+
+    async validateLoginButtonVisible(): Promise<void> {
+
+        await this.validateElementVisible(
+            this.loginButton
+        );
+    }
+
+    // =====================================================
+    // VALUE VALIDATIONS
+    // =====================================================
+
+    async validateUsernameValue(
+        expectedValue: string
+    ): Promise<void> {
+
+        await this.validateValue(
+            this.usernameInput,
+            expectedValue
+        );
+    }
+
+    async validatePasswordValue(
+        expectedValue: string
+    ): Promise<void> {
+
+        await this.validateValue(
+            this.passwordInput,
+            expectedValue
+        );
+    }
 }

@@ -1,237 +1,122 @@
-import { Locator, Page, expect } from "@playwright/test";
+import {
+    Locator,
+    Page
+} from "@playwright/test";
 
-export class MyWhamPage {
-  readonly page: Page;
+import { BasePage } from "./BasePage";
 
-  // =========================
-  // Page Headings
-  // =========================
+import { WhamSearchSection }
+    from "./components/wham/WhamSearchSection";
 
-  readonly myWhamHeading: Locator;
-  readonly welcomeHeading: Locator;
+import { WhamTableSection }
+    from "./components/wham/WhamTableSection";
 
-  // =========================
-  // Date Fields
-  // =========================
+import { WhamAddEditModal }
+    from "./components/wham/WhamAddEditModal";
 
-  readonly reminderStartDate: Locator;
-  readonly reminderEndDate: Locator;
+import { WhamPropertyModal }
+    from "./components/wham/WhamPropertyModal";
 
-  readonly expirationStartDate: Locator;
-  readonly expirationEndDate: Locator;
+import { WhamValidationPopup }
+    from "./components/wham/WhamValidationPopup";
 
-  readonly createdOnStartDate: Locator;
-  readonly createdOnEndDate: Locator;
+import { WhamDeletePopup } 
+    from "./components/wham/WhamDeletePopup";  
 
-  readonly updatedOnStartDate: Locator;
-  readonly updatedOnEndDate: Locator;
+export class MyWhamPage extends BasePage {
 
-  // =========================
-  // Dropdowns
-  // =========================
+    // =====================================================
+    // PAGE LOCATORS
+    // =====================================================
 
-  readonly categoryDropdown: Locator;
-  readonly typesDropdown: Locator;
-  readonly levelsDropdown: Locator;
-  readonly statusDropdown: Locator;
+    readonly myWhamMenu: Locator;
 
-  // =========================
-  // Buttons
-  // =========================
+    readonly myWhamHeading: Locator;
 
-  readonly searchButton: Locator;
-  readonly resetButton: Locator;
-  readonly downloadButton: Locator;
-  readonly deleteButton: Locator;
+    // =====================================================
+    // COMPONENTS
+    // =====================================================
 
-  // =========================
-  // Table
-  // =========================
+    readonly search: WhamSearchSection;
 
-  readonly tableRows: Locator;
-  readonly noRecordsMessage: Locator;
-  readonly firstRowCheckbox: Locator;
+    readonly table: WhamTableSection;
 
-  constructor(page: Page) {
-    this.page = page;
+    readonly addEditModal: WhamAddEditModal;
 
-    // =========================
-    // Headings
-    // =========================
+    readonly propertyModal: WhamPropertyModal;
 
-    this.myWhamHeading = page.getByRole("heading", {
-      name: "My Wham",
-    });
+    readonly validation: WhamValidationPopup;
 
-    this.welcomeHeading = page.getByText("Welcome");
+    readonly deletePopup: WhamDeletePopup;
 
-    // =========================
-    // Date Fields
-    // =========================
 
-    this.reminderStartDate = page.getByRole("textbox", {
-      name: "Starting Reminder Date",
-    });
+    // =====================================================
+    // CONSTRUCTOR
+    // =====================================================
 
-    this.reminderEndDate = page.getByRole("textbox", {
-      name: "Ending Reminder Date",
-    });
+    constructor(page: Page) {
 
-    this.expirationStartDate = page.getByRole("textbox", {
-      name: "Starting Expiration Date",
-    });
+        super(page);
 
-    this.expirationEndDate = page.getByRole("textbox", {
-      name: "Ending Expiration Date",
-    });
+        // =================================================
+        // PAGE LOCATORS
+        // =================================================
 
-    this.createdOnStartDate = page.getByRole("textbox", {
-      name: "Starting Created on Date",
-    });
+        this.myWhamMenu =
+        page.locator("(//li[contains(@class,'kt-menu__item')])[4]");
 
-    this.createdOnEndDate = page.getByRole("textbox", {
-      name: "Ending Created on Date",
-    });
+        this.myWhamHeading =
+            page.getByRole(
+                "heading",
+                {
+                    name: "My Wham"
+                }
+            );
 
-    this.updatedOnStartDate = page.getByRole("textbox", {
-      name: "Starting Updated on Date",
-    });
+        // =================================================
+        // COMPONENTS
+        // =================================================
 
-    this.updatedOnEndDate = page.getByRole("textbox", {
-      name: "Ending Updated on Date",
-    });
+        this.search =
+            new WhamSearchSection(page);
 
-    // =========================
-    // Dropdowns
-    // =========================
+        this.table =
+            new WhamTableSection(page);
 
-    this.categoryDropdown = page.locator("#Category");
-    this.typesDropdown = page.locator("#Types");
-    this.levelsDropdown = page.locator("#Levels");
-    this.statusDropdown = page.locator("#Status");
+        this.addEditModal =
+            new WhamAddEditModal(page);
 
-    // =========================
-    // Buttons
-    // =========================
+        this.propertyModal =
+            new WhamPropertyModal(page);
 
-    this.searchButton = page.getByRole("button", {
-      name: "Search",
-    });
+        this.validation =
+            new WhamValidationPopup(page);
 
-    this.resetButton = page.getByRole("button", {
-      name: "Reset",
-    });
+        this.deletePopup =
+            new WhamDeletePopup(page);    
+    }
 
-    this.downloadButton = page.locator('button[title="Download"]');
+    // =====================================================
+    // NAVIGATION
+    // =====================================================
 
-    this.deleteButton = page.locator('button[title="Delete"]');
+    async openMyWhamPage(): Promise<void> {
 
-    // =========================
-    // Table
-    // =========================
+        await this.logStep(
+            "Opening My WHAM page"
+        );
 
-    this.tableRows = page.locator("#myWhamSearchTable tbody tr");
+        await this.clickElement(
+            this.myWhamMenu
+        );
 
-    this.noRecordsMessage = page.getByText("No records found");
+        await this.validateElementVisible(
+            this.myWhamHeading
+        );
 
-    this.firstRowCheckbox = page
-      .locator("#myWhamSearchTable tbody tr")
-      .first()
-      .locator('input[type="checkbox"]');
-  }
+        await this.logStep(
+            "My WHAM page opened successfully"
+        );
 
-  // ======================================
-  // Navigate to My WHAM Page
-  // ======================================
-
-  async openMyWhamPage() {
-    await this.page.getByText("My Wham").click();
-
-    await expect(this.myWhamHeading).toBeVisible();
-  }
-
-  // ======================================
-  // Search using Reminder Dates
-  // ======================================
-
-  async searchUsingReminderDates(
-    startDate: string,
-    endDate: string
-  ) {
-    await this.reminderStartDate.fill(startDate);
-
-    await this.reminderEndDate.fill(endDate);
-
-    await this.searchButton.click();
-  }
-
-  // ======================================
-  // Select Dropdown Values
-  // ======================================
-
-  async selectCategory(category: string) {
-    await this.categoryDropdown.selectOption({
-      label: category,
-    });
-  }
-
-  async selectType(type: string) {
-    await this.typesDropdown.selectOption({
-      label: type,
-    });
-  }
-
-  async selectLevel(level: string) {
-    await this.levelsDropdown.selectOption({
-      label: level,
-    });
-  }
-
-  async selectStatus(status: string) {
-    await this.statusDropdown.selectOption({
-      label: status,
-    });
-  }
-
-  // ======================================
-  // Validate Search Results
-  // ======================================
-
-  async validateSearchResults() {
-    await this.page.waitForTimeout(2000);
-
-    const count = await this.tableRows.count();
-
-    expect(count).toBeGreaterThan(0);
-
-    console.log(`Search Results Found: ${count}`);
-  }
-
-  // ======================================
-  // Validate No Records Found
-  // ======================================
-
-  async validateNoRecordsFound() {
-    await expect(this.noRecordsMessage).toBeVisible();
-
-    console.log("No Records Found Message Displayed");
-  }
-
-  // ======================================
-  // Select First Row Checkbox
-  // ======================================
-
-  async selectFirstRowCheckbox() {
-    await this.firstRowCheckbox.check();
-  }
-
-  // ======================================
-  // Validate Download/Delete Buttons
-  // ======================================
-
-  async validateActionButtonsEnabled() {
-    await expect(this.downloadButton).toBeEnabled();
-
-    await expect(this.deleteButton).toBeEnabled();
-  }
+    }
 }

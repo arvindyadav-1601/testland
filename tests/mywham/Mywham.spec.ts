@@ -35,12 +35,13 @@ test('verify wham message search functionality using reminder date', async ({ pa
     console.log(`Search Results Found: ${count}`)
 
 });
-*/
+
 import { test, expect } from "../../fixtures/index";
 
 import { MyWhamPage } from "../../pages/MyWhamPage";
 
-import { WhamsearchData } from "../../testdata/myWhamData";
+
+  import { WhamSearchData, AddWhamData } from "../../testdata/myWhamData";
 
 
 
@@ -148,4 +149,66 @@ test.describe("My WHAM Test Suite", () => {
       await myWhamPage.validateNoRecordsFound();
     }
   });
+});
+*/
+import { test, expect } from "../../fixtures/index";
+
+import { MyWhamPage } from "../../pages/MyWhamPage";
+
+test.describe("My WHAM Smoke Tests", () => {
+
+    let myWhamPage: MyWhamPage;
+
+    test.beforeEach(async ({ authenticatedPage }) => {
+
+        myWhamPage =
+
+            new MyWhamPage(authenticatedPage);
+
+        await myWhamPage.openMyWhamPage();
+
+    });
+
+    test(
+
+        "Verify My WHAM page accessible",
+
+        async () => {
+
+        await expect(
+
+            myWhamPage.search.searchButton
+
+        ).toBeVisible();
+
+    });
+
+    test(
+
+        "Verify search section displayed",
+
+        async () => {
+
+        await expect(
+
+            myWhamPage.search.messageTextbox
+
+        ).toBeVisible();
+
+    });
+
+    test(
+
+        "Verify result table displayed",
+
+        async () => {
+
+        await expect(
+
+            myWhamPage.table.searchResultsTable
+
+        ).toBeVisible();
+
+    });
+
 });
