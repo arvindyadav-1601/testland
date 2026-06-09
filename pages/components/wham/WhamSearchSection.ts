@@ -74,117 +74,65 @@ export class WhamSearchSection extends BasePage {
         // =================================================
 
         this.myWhamHeading =
-        page.getByRole(
-            'heading', { name: 'My Wham' })
-            ;
+            page.getByRole('heading', { name: 'My Wham', level: 1 });
 
         // =================================================
         // DATE FILTERS
         // =================================================
 
-        this.reminderStartDateInput =
-            page.getByRole(
-                'textbox',
-                { name: 'Starting Reminder Date' }
-            );
+        this.reminderStartDateInput = page.getByRole('textbox', { name: 'Starting Reminder Date' });
+        this.reminderEndDateInput = page.getByRole('textbox', { name: 'Ending Reminder Date' });
 
-        this.reminderEndDateInput =
-            page.getByRole(
-                'textbox',
-                { name: 'Ending Reminder Date' }
-            );
+        this.expirationStartDateInput = page.getByRole('textbox', { name: 'Starting Expiration Date' });
+        this.expirationEndDateInput = page.getByRole('textbox', { name: 'Ending Expiration Date' });
 
-        this.expirationStartDateInput =
-            page.getByRole(
-                'textbox',
-                { name: 'Starting Expiration Date' }
-            );
 
-        this.expirationEndDateInput =
-            page.getByRole(
-                'textbox',
-                { name: 'Ending Expiration Date' }
-            );
+        this.createdStartDateInput = page.getByRole('textbox', { name: 'Starting Message Creation Date' })
+        this.createdEndDateInput = page.locator(`//input[@name='CreatedEndDate']`);
 
-        this.createdStartDateInput =
-            page.getByRole(
-                'textbox',
-                { name: 'Starting Message Creation Date' }
-            );
+        this.updatedStartDateInput = page.locator('[name="UpdatedStartDate"]');
+        this.updatedEndDateInput = page.locator('[name="UpdatedEndDate"]');
 
-        this.createdEndDateInput =
-            page.locator(
-                '[name="CreatedEndDate"]'
-            );
 
-        this.updatedStartDateInput =
-            page.locator(
-                '[name="UpdatedStartDate"]'
-            );
-
-        this.updatedEndDateInput =
-            page.locator(
-                '[name="UpdatedEndDate"]'
-            );
 
         // =================================================
         // DROPDOWNS
         // =================================================
 
-        this.categoryDropdown =
-            page.getByRole(
-                'combobox',
-                { name: 'Category' }
-            );
+        this.categoryDropdown = page.getByRole('combobox', { name: 'Category' });
 
-        this.typeDropdown =
-            page.getByRole(
-                'combobox',
-                { name: 'Types' }
-            );
 
-        this.levelDropdown =
-            page.getByRole(
-                'combobox',
-                { name: 'Levels' }
-            );
 
-        this.statusDropdown =
-            page.getByRole(
-                'combobox',
-                { name: 'Status' }
-            );
+        this.typeDropdown = page.getByRole('combobox', { name: 'Types' });
+
+
+
+        this.levelDropdown = page.getByRole('combobox', { name: 'Levels' });
+
+
+
+        this.statusDropdown = page.getByRole('combobox', { name: 'Status' });
+
+
 
         // =================================================
         // SEARCH FIELDS
         // =================================================
 
-        this.messageTextbox =
-            page.getByLabel(
-                'Message',
-                { exact: true }
-            );
+        this.messageTextbox = page.locator("#Message");
 
-        this.confidentialCheckbox =
-            page.getByLabel(
-                'Include Confidential'
-            );
+        this.confidentialCheckbox = page.getByLabel('Include Confidential');
+
+
 
         // =================================================
         // BUTTONS
         // =================================================
 
-        this.searchButton =
-            page.getByRole(
-                'button',
-                { name: 'Search' }
-            );
+        this.searchButton = page.getByRole('button', { name: 'Search' });
 
-        this.resetButton =
-            page.getByRole(
-                'button',
-                { name: 'Reset' }
-            );
+        this.resetButton = page.getByRole('button', { name: 'Reset' });
+
     }
 
     // =====================================================

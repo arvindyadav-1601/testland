@@ -63,15 +63,12 @@ export class MyWhamPage extends BasePage {
         // =================================================
 
         this.myWhamMenu =
-        page.locator("(//li[contains(@class,'kt-menu__item')])[4]");
+        page.locator(`//li[5]/a/span[1]`);
 
         this.myWhamHeading =
-            page.getByRole(
-                "heading",
-                {
-                    name: "My Wham"
-                }
-            );
+            page.getByRole('heading', { name: 'My Wham', level: 1 });
+
+;
 
         // =================================================
         // COMPONENTS
