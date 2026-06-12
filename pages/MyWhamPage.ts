@@ -5,6 +5,8 @@ import {
 
 import { BasePage } from "./BasePage";
 
+import { HomePage } from "./HomePage";
+
 import { WhamSearchSection }
     from "./components/wham/WhamSearchSection";
 
@@ -29,7 +31,7 @@ export class MyWhamPage extends BasePage {
     // PAGE LOCATORS
     // =====================================================
 
-    readonly myWhamMenu: Locator;
+    readonly home: HomePage;
 
     readonly myWhamHeading: Locator;
 
@@ -62,8 +64,8 @@ export class MyWhamPage extends BasePage {
         // PAGE LOCATORS
         // =================================================
 
-        this.myWhamMenu =
-        page.locator(`//li[5]/a/span[1]`);
+        this.home =
+            new HomePage(page);
 
         this.myWhamHeading =
             page.getByRole('heading', { name: 'My Wham', level: 1 });
@@ -99,21 +101,12 @@ export class MyWhamPage extends BasePage {
 
     async openMyWhamPage(): Promise<void> {
 
-        await this.logStep(
-            "Opening My WHAM page"
-        );
+        await this.home.openMyWham();
 
-        await this.clickElement(
-            this.myWhamMenu
-        );
-
-        await this.validateElementVisible(
+        // Wait (not assert) for the module to be ready before a test runs.
+        // Outcome assertions belong in the spec, not the page object.
+        await this.waitForElementVisible(
             this.myWhamHeading
         );
-
-        await this.logStep(
-            "My WHAM page opened successfully"
-        );
-
     }
 }

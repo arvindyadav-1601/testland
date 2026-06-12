@@ -1,0 +1,821 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - text: 
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - banner [ref=e6]:
+          - link "Catalis" [ref=e7] [cursor=pointer]:
+            - /url: /
+            - heading "Catalis" [level=3] [ref=e8]
+        - button "Toggle navigation sidebar" [ref=e10] [cursor=pointer]
+      - navigation "Main Navigation" [ref=e12]:
+        - list [ref=e14]:
+          - listitem [ref=e15]:
+            - link "Welcome GCS" [ref=e16] [cursor=pointer]:
+              - /url: /MyProfile
+              - heading "Welcome GCS" [level=4] [ref=e17]:
+                - generic [ref=e18]: Welcome GCS
+          - listitem [ref=e19]:
+            - 'link "Department: treasurer" [ref=e20] [cursor=pointer]':
+              - /url: "#"
+              - 'heading "Department: treasurer" [level=4] [ref=e21]':
+                - generic [ref=e22]: "Department: treasurer"
+          - listitem [ref=e23]:
+            - link " Home" [ref=e24] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e25]: 
+              - generic [ref=e26]: Home
+          - listitem [ref=e27]:
+            - heading "My Work" [level=4] [ref=e28]
+            - text: 
+          - listitem [ref=e29]:
+            - link "My Wham" [ref=e30] [cursor=pointer]:
+              - /url: /MyWham
+              - generic [ref=e31]: My Wham
+          - listitem [ref=e33]:
+            - link "My Processes 3" [ref=e34] [cursor=pointer]:
+              - /url: /MyProcesses
+              - generic [ref=e35]: My Processes
+              - generic "3 items in My Processes." [ref=e37]: "3"
+          - listitem [ref=e38]:
+            - heading "Catalis" [level=4] [ref=e39]
+            - text: 
+          - listitem [ref=e40]:
+            - link "Cash Receipting" [ref=e41] [cursor=pointer]:
+              - /url: /CashReceipting
+              - generic [ref=e42]: Cash Receipting
+          - listitem [ref=e44]:
+            - link "Bill Maintenance" [ref=e45] [cursor=pointer]:
+              - /url: /BillMaintenance/RealEstate/Search
+              - generic [ref=e46]: Bill Maintenance
+          - listitem [ref=e47]:
+            - link "Processes " [ref=e48] [cursor=pointer]:
+              - /url: javascript:;
+              - generic [ref=e49]: Processes
+              - generic [ref=e50]: 
+          - listitem [ref=e51]:
+            - link "Reports " [ref=e52] [cursor=pointer]:
+              - /url: javascript:;
+              - generic [ref=e53]: Reports
+              - generic [ref=e54]: 
+          - listitem [ref=e55]:
+            - link "Settings " [ref=e56] [cursor=pointer]:
+              - /url: javascript:;
+              - generic [ref=e57]: Settings
+              - generic [ref=e58]: 
+          - listitem [ref=e59]:
+            - link "Catalis Help" [ref=e60] [cursor=pointer]:
+              - /url: /Home/Help
+              - generic [ref=e61]: Catalis Help
+          - listitem [ref=e62]:
+            - link "About Catalis" [ref=e63] [cursor=pointer]:
+              - /url: /Home/AboutUs
+              - generic [ref=e64]: About Catalis
+      - region "Logged-in User Settings" [ref=e67]:
+        - generic [ref=e69]:
+          - link "My Profile" [ref=e70] [cursor=pointer]:
+            - /url: /MyProfile
+            - generic: 
+          - link "Logout" [ref=e71] [cursor=pointer]:
+            - /url: /Login/Logout
+            - generic: 
+    - generic [ref=e72]:
+      - main [ref=e73]:
+        - generic [ref=e74]:
+          - generic [ref=e75]:
+            - generic [ref=e78]:
+              - heading "My Wham" [level=1] [ref=e79]
+              - generic [ref=e80]:
+                - link "Home" [ref=e81] [cursor=pointer]:
+                  - /url: /
+                  - generic [ref=e82]: 
+                - link "My Wham" [ref=e84] [cursor=pointer]:
+                  - /url: ""
+            - generic [ref=e86]:
+              - heading "Search" [level=2] [ref=e89]
+              - generic [ref=e92]:
+                - generic [ref=e93]:
+                  - generic [ref=e94]:
+                    - generic [ref=e96]: Start
+                    - generic [ref=e98]: End
+                  - generic [ref=e99]:
+                    - generic [ref=e100]: Reminder Date
+                    - generic [ref=e102]:
+                      - textbox "Starting Reminder Date" [ref=e103]:
+                        - /placeholder: From
+                      - generic [ref=e105]: "-"
+                      - textbox "Ending Reminder Date" [ref=e106]:
+                        - /placeholder: To
+                  - generic [ref=e107]:
+                    - generic [ref=e108]: Expiration Date
+                    - generic [ref=e110]:
+                      - textbox "Starting Expiration Date" [ref=e111]:
+                        - /placeholder: From
+                      - generic [ref=e113]: "-"
+                      - textbox "Ending Expiration Date" [ref=e114]:
+                        - /placeholder: To
+                  - generic [ref=e115]:
+                    - generic [ref=e116]: Created On
+                    - generic [ref=e118]:
+                      - textbox "Starting Message Creation Date" [ref=e119]:
+                        - /placeholder: From
+                        - text: 01/01/2025
+                      - generic [ref=e121]: "-"
+                      - textbox "To" [ref=e122]: 12/31/2026
+                  - generic [ref=e123]:
+                    - generic [ref=e124]: Updated On
+                    - generic [ref=e126]:
+                      - textbox "From" [ref=e127]
+                      - generic [ref=e129]: "-"
+                      - textbox "To" [ref=e130]
+                - generic [ref=e132]:
+                  - generic [ref=e133]:
+                    - generic [ref=e134]:
+                      - generic [ref=e135]: Category
+                      - combobox "Category" [ref=e136]:
+                        - option [selected]
+                        - option "FLAG"
+                        - option "MESSAGE"
+                    - generic [ref=e137]:
+                      - generic [ref=e138]: Types
+                      - combobox "Types" [ref=e139]:
+                        - option [selected]
+                        - option "2019 PENALTY"
+                        - option "ACTIVATED-MUNI CHNG"
+                        - option "ADDRESSCHANGED"
+                        - option "AG USE"
+                        - option "AGREEMENT"
+                        - option "ALLCITYTMC"
+                        - option "ALLXCITYTMC"
+                        - option "BANKRUPTCY"
+                        - option "BANKRUPTCY NOTE"
+                        - option "BANKRUPTCY-FROZEN RT"
+                        - option "BNKRPT FLG-CHLD PRCL"
+                        - option "BNKRPTCY - CLOSED"
+                        - option "BNKRPTCY - W/O PMTS"
+                        - option "BNKRPTCY - WITH PMTS"
+                        - option "CALL"
+                        - option "CERTIFICATE CHANGE"
+                        - option "CNTYOWNEDLAND"
+                        - option "COMM WITH MUNI"
+                        - option "COMPLETED PMT PLAN"
+                        - option "CONTACT INFORMATION"
+                        - option "CONTAM - CURRENT"
+                        - option "CONTAM - HISTORICAL"
+                        - option "CONTAMINATED-MSG"
+                        - option "CONVERSION-TAX"
+                        - option "CORP CON OPINION"
+                        - option "CORRESPONDENCE"
+                        - option "DECEASED-MSG"
+                        - option "DECEASED-UNKNOWN ADD"
+                        - option "DEED IN ERROR"
+                        - option "DEEDED"
+                        - option "DEEDED CURRENT YEAR"
+                        - option "DEEDED-CHLD PRCL"
+                        - option "DEFAULT PAYMENT PLAN"
+                        - option "DEL TAX MAIL ADDRESS"
+                        - option "DISREGARD"
+                        - option "DISTRICT CHANGE"
+                        - option "DO NOT TAX DEED"
+                        - option "DONOTGENERATENOTICES"
+                        - option "ENVIRONMENTAL"
+                        - option "FAILED PAYMENT PLAN"
+                        - option "FINAL NOTICE"
+                        - option "FLOODPLAIN"
+                        - option "FORECLOSURE"
+                        - option "FORECLOSURE NOTE"
+                        - option "HAND ALLOCATION"
+                        - option "INACTIVATED-MUNI CHG"
+                        - option "INREM-FLAG"
+                        - option "INTERESTEDPARTY-FLAG"
+                        - option "JE CERT PROC"
+                        - option "JE DEED PROC"
+                        - option "JUDICIAL PRIVACY"
+                        - option "LANDLOCKED"
+                        - option "LATE-WRONG PYMT"
+                        - option "LEGAL DESCRIPTION"
+                        - option "LMC"
+                        - option "LMC-PRIVATE"
+                        - option "LOTTERY CREDIT"
+                        - option "MAILING ADD ERROR"
+                        - option "MESSAGE-TAX"
+                        - option "MUNI"
+                        - option "MUNI ERROR"
+                        - option "OMITTED TAX"
+                        - option "OUTLOT-FLAG"
+                        - option "P & D NOTES"
+                        - option "PAYMENT PLAN"
+                        - option "PAYMENT PROB"
+                        - option "PYMT BACKOUT"
+                        - option "PYMT FORWARDED"
+                        - option "PYMT PROBLEMS"
+                        - option "QUIT CLAIM-CTD"
+                        - option "RAZING - FLAG"
+                        - option "RETURNED CHECK"
+                        - option "RETURNED MAIL"
+                        - option "SAFEATHOME"
+                        - option "TAX DEED APP NOTES"
+                        - option "TAX DEED NOTES"
+                        - option "TAX DEEDED RETAINED"
+                        - option "TAX DEEDED ROLL FWD"
+                        - option "TMC"
+                        - option "WETLAND"
+                        - option "WRITE OFFS"
+                    - generic [ref=e140]:
+                      - generic [ref=e141]: Levels
+                      - combobox "Levels" [ref=e142]:
+                        - option [selected]
+                        - option "HIGH"
+                        - option "LOW"
+                        - option "MEDIUM"
+                  - generic [ref=e143]:
+                    - generic [ref=e144]:
+                      - generic [ref=e145]: Status
+                      - combobox "Status" [ref=e146]:
+                        - option "All" [selected]
+                        - option "Current"
+                        - option "Expired"
+                    - generic [ref=e147]:
+                      - generic [ref=e148]: Message
+                      - textbox "Message" [ref=e149]
+                    - generic [ref=e150]:
+                      - generic [ref=e151] [cursor=pointer]:
+                        - checkbox "Include Confidential" [checked] [ref=e152]
+                        - text: Include Confidential
+                      - button "Reset" [ref=e154] [cursor=pointer]
+                      - button "Search" [ref=e155] [cursor=pointer]
+            - generic [ref=e157]:
+              - generic [ref=e158]:
+                - heading "Search Results" [level=2] [ref=e160]
+                - generic [ref=e162]:
+                  - button "" [ref=e163] [cursor=pointer]:
+                    - generic: 
+                  - button "" [ref=e164] [cursor=pointer]:
+                    - generic: 
+                  - button "" [disabled] [ref=e165]:
+                    - generic: 
+              - table "Search Results" [ref=e427]:
+                - rowgroup [ref=e428]:
+                  - row "Checkbox To Category Level Type Properties Message Creation Date Expiration Date Confidential" [ref=e429]:
+                    - columnheader "Checkbox" [ref=e430]:
+                      - generic "select or unselect all rows" [ref=e432] [cursor=pointer]:
+                        - checkbox "select or unselect all rows" [ref=e433]
+                    - columnheader "To" [ref=e435] [cursor=pointer]:
+                      - generic [ref=e436]: To
+                    - columnheader "Category" [ref=e437] [cursor=pointer]:
+                      - generic [ref=e438]: Category
+                    - columnheader "Level" [ref=e439] [cursor=pointer]:
+                      - generic [ref=e440]: Level
+                    - columnheader "Type" [ref=e441] [cursor=pointer]:
+                      - generic [ref=e442]: Type
+                    - columnheader "Properties" [ref=e443] [cursor=pointer]:
+                      - generic [ref=e444]: Properties
+                    - columnheader "Message" [ref=e445] [cursor=pointer]:
+                      - generic [ref=e446]: Message
+                    - columnheader "Creation Date" [ref=e447] [cursor=pointer]:
+                      - generic [ref=e448]: Creation Date
+                    - columnheader "Expiration Date" [ref=e449] [cursor=pointer]:
+                      - generic [ref=e450]: Expiration Date
+                    - columnheader "Confidential" [ref=e451] [cursor=pointer]:
+                      - generic [ref=e452]: Confidential
+                - rowgroup [ref=e453]:
+                  - row "select or unselect row GCS GCS FLAG LOW BANKRUPTCY NOTE test automatio 06/03/2026 05/29/2026 No" [ref=e454]:
+                    - cell "select or unselect row" [ref=e455]:
+                      - generic "select or unselect row" [ref=e457] [cursor=pointer]:
+                        - checkbox "select or unselect row" [ref=e458]
+                    - cell "GCS GCS" [ref=e460]:
+                      - generic [ref=e461]: GCS GCS
+                    - cell "FLAG" [ref=e462]:
+                      - generic [ref=e463]: FLAG
+                    - cell "LOW" [ref=e464]:
+                      - generic [ref=e465]: LOW
+                    - cell "BANKRUPTCY NOTE" [ref=e466]:
+                      - generic [ref=e467]: BANKRUPTCY NOTE
+                    - cell [ref=e468]
+                    - cell "test automatio" [ref=e469]:
+                      - generic [ref=e470]: test automatio
+                    - cell "06/03/2026" [ref=e471]:
+                      - generic [ref=e472]: 06/03/2026
+                    - cell "05/29/2026" [ref=e473]:
+                      - generic [ref=e474]: 05/29/2026
+                    - cell "No" [ref=e475]:
+                      - generic [ref=e477]: "No"
+                  - row "select or unselect row GCS GCS FLAG HIGH AGREEMENT test automation 06/03/2026 05/31/2026 No" [ref=e478]:
+                    - cell "select or unselect row" [ref=e479]:
+                      - generic "select or unselect row" [ref=e481] [cursor=pointer]:
+                        - checkbox "select or unselect row" [ref=e482]
+                    - cell "GCS GCS" [ref=e484]:
+                      - generic [ref=e485]: GCS GCS
+                    - cell "FLAG" [ref=e486]:
+                      - generic [ref=e487]: FLAG
+                    - cell "HIGH" [ref=e488]:
+                      - generic [ref=e489]: HIGH
+                    - cell "AGREEMENT" [ref=e490]:
+                      - generic [ref=e491]: AGREEMENT
+                    - cell [ref=e492]
+                    - cell "test automation" [ref=e493]:
+                      - generic [ref=e494]: test automation
+                    - cell "06/03/2026" [ref=e495]:
+                      - generic [ref=e496]: 06/03/2026
+                    - cell "05/31/2026" [ref=e497]:
+                      - generic [ref=e498]: 05/31/2026
+                    - cell "No" [ref=e499]:
+                      - generic [ref=e501]: "No"
+                  - row "select or unselect row GCS GCS FLAG LOW 2019 PENALTY 30-4-220-124-1111 test 05/01/2026 06/10/2025 No" [ref=e502]:
+                    - cell "select or unselect row" [ref=e503]:
+                      - generic "select or unselect row" [ref=e505] [cursor=pointer]:
+                        - checkbox "select or unselect row" [ref=e506]
+                    - cell "GCS GCS" [ref=e508]:
+                      - generic [ref=e509]: GCS GCS
+                    - cell "FLAG" [ref=e510]:
+                      - generic [ref=e511]: FLAG
+                    - cell "LOW" [ref=e512]:
+                      - generic [ref=e513]: LOW
+                    - cell "2019 PENALTY" [ref=e514]:
+                      - generic [ref=e515]: 2019 PENALTY
+                    - cell "30-4-220-124-1111" [ref=e516]:
+                      - generic [ref=e517]: 30-4-220-124-1111
+                    - cell "test" [ref=e518]:
+                      - generic [ref=e519]: test
+                    - cell "05/01/2026" [ref=e520]:
+                      - generic [ref=e521]: 05/01/2026
+                    - cell "06/10/2025" [ref=e522]:
+                      - generic [ref=e523]: 06/10/2025
+                    - cell "No" [ref=e524]:
+                      - generic [ref=e526]: "No"
+                  - 'row "select or unselect row GCS GCS FLAG HIGH JUDICIAL PRIVACY 07-222-13-301-026 This property has owner and address that is protected by Judicial Privacy law. The name and address is to be shielded from public view. If public inquires about owner name or address, respond with: \"I am prohibited by state law from releasing this information\". If pressed further, direct inquiry to Corp Counsel office. 09/16/2025 No" [ref=e527]':
+                    - cell "select or unselect row" [ref=e528]:
+                      - generic "select or unselect row" [ref=e530] [cursor=pointer]:
+                        - checkbox "select or unselect row" [ref=e531]
+                    - cell "GCS GCS" [ref=e533]:
+                      - generic [ref=e534]: GCS GCS
+                    - cell "FLAG" [ref=e535]:
+                      - generic [ref=e536]: FLAG
+                    - cell "HIGH" [ref=e537]:
+                      - generic [ref=e538]: HIGH
+                    - cell "JUDICIAL PRIVACY" [ref=e539]:
+                      - generic [ref=e540]: JUDICIAL PRIVACY
+                    - cell "07-222-13-301-026" [ref=e541]:
+                      - generic [ref=e542]: 07-222-13-301-026
+                    - 'cell "This property has owner and address that is protected by Judicial Privacy law. The name and address is to be shielded from public view. If public inquires about owner name or address, respond with: \"I am prohibited by state law from releasing this information\". If pressed further, direct inquiry to Corp Counsel office." [ref=e543]':
+                      - generic [ref=e544]: "This property has owner and address that is protected by Judicial Privacy law. The name and address is to be shielded from public view. If public inquires about owner name or address, respond with: \"I am prohibited by state law from releasing this information\". If pressed further, direct inquiry to Corp Counsel office."
+                    - cell "09/16/2025" [ref=e545]:
+                      - generic [ref=e546]: 09/16/2025
+                    - cell [ref=e547]
+                    - cell "No" [ref=e548]:
+                      - generic [ref=e550]: "No"
+                  - 'row "select or unselect row GCS GCS FLAG HIGH JUDICIAL PRIVACY This property has owner and address that is protected by Judicial Privacy law. The name and address is to be shielded from public view. If public inquires about owner name or address, respond with: \"I am prohibited by state law from releasing this information\". If pressed further, direct inquiry to Corp Counsel office. 09/12/2025 Yes" [ref=e551]':
+                    - cell "select or unselect row" [ref=e552]:
+                      - generic "select or unselect row" [ref=e554] [cursor=pointer]:
+                        - checkbox "select or unselect row" [ref=e555]
+                    - cell "GCS GCS" [ref=e557]:
+                      - generic [ref=e558]: GCS GCS
+                    - cell "FLAG" [ref=e559]:
+                      - generic [ref=e560]: FLAG
+                    - cell "HIGH" [ref=e561]:
+                      - generic [ref=e562]: HIGH
+                    - cell "JUDICIAL PRIVACY" [ref=e563]:
+                      - generic [ref=e564]: JUDICIAL PRIVACY
+                    - cell [ref=e565]
+                    - 'cell "This property has owner and address that is protected by Judicial Privacy law. The name and address is to be shielded from public view. If public inquires about owner name or address, respond with: \"I am prohibited by state law from releasing this information\". If pressed further, direct inquiry to Corp Counsel office." [ref=e566]':
+                      - generic [ref=e567]: "This property has owner and address that is protected by Judicial Privacy law. The name and address is to be shielded from public view. If public inquires about owner name or address, respond with: \"I am prohibited by state law from releasing this information\". If pressed further, direct inquiry to Corp Counsel office."
+                    - cell "09/12/2025" [ref=e568]:
+                      - generic [ref=e569]: 09/12/2025
+                    - cell [ref=e570]
+                    - cell "Yes" [ref=e571]:
+                      - generic [ref=e573]: "Yes"
+                  - 'row "select or unselect row GCS GCS FLAG HIGH JUDICIAL PRIVACY This property has owner and address that is protected by Judicial Privacy law. The name and address is to be shielded from public view. If public inquires about owner name or address, respond with: \"I am prohibited by state law from releasing this information\". If pressed further, direct inquiry to Corp Counsel office. 04/22/2025 Yes" [ref=e574]':
+                    - cell "select or unselect row" [ref=e575]:
+                      - generic "select or unselect row" [ref=e577] [cursor=pointer]:
+                        - checkbox "select or unselect row" [ref=e578]
+                    - cell "GCS GCS" [ref=e580]:
+                      - generic [ref=e581]: GCS GCS
+                    - cell "FLAG" [ref=e582]:
+                      - generic [ref=e583]: FLAG
+                    - cell "HIGH" [ref=e584]:
+                      - generic [ref=e585]: HIGH
+                    - cell "JUDICIAL PRIVACY" [ref=e586]:
+                      - generic [ref=e587]: JUDICIAL PRIVACY
+                    - cell [ref=e588]
+                    - 'cell "This property has owner and address that is protected by Judicial Privacy law. The name and address is to be shielded from public view. If public inquires about owner name or address, respond with: \"I am prohibited by state law from releasing this information\". If pressed further, direct inquiry to Corp Counsel office." [ref=e589]':
+                      - generic [ref=e590]: "This property has owner and address that is protected by Judicial Privacy law. The name and address is to be shielded from public view. If public inquires about owner name or address, respond with: \"I am prohibited by state law from releasing this information\". If pressed further, direct inquiry to Corp Counsel office."
+                    - cell "04/22/2025" [ref=e591]:
+                      - generic [ref=e592]: 04/22/2025
+                    - cell [ref=e593]
+                    - cell "Yes" [ref=e594]:
+                      - generic [ref=e596]: "Yes"
+                  - 'row "select or unselect row GCS GCS FLAG HIGH JUDICIAL PRIVACY 83-4-223-062-0131 This property has owner and address that is protected by Judicial Privacy law. The name and address is to be shielded from public view. If public inquires about owner name or address, respond with: \"I am prohibited by state law from releasing this information\". If pressed further, direct inquiry to Corp Counsel office. 07/28/2025 No" [ref=e597]':
+                    - cell "select or unselect row" [ref=e598]:
+                      - generic "select or unselect row" [ref=e600] [cursor=pointer]:
+                        - checkbox "select or unselect row" [ref=e601]
+                    - cell "GCS GCS" [ref=e603]:
+                      - generic [ref=e604]: GCS GCS
+                    - cell "FLAG" [ref=e605]:
+                      - generic [ref=e606]: FLAG
+                    - cell "HIGH" [ref=e607]:
+                      - generic [ref=e608]: HIGH
+                    - cell "JUDICIAL PRIVACY" [ref=e609]:
+                      - generic [ref=e610]: JUDICIAL PRIVACY
+                    - cell "83-4-223-062-0131" [ref=e611]:
+                      - generic [ref=e612]: 83-4-223-062-0131
+                    - 'cell "This property has owner and address that is protected by Judicial Privacy law. The name and address is to be shielded from public view. If public inquires about owner name or address, respond with: \"I am prohibited by state law from releasing this information\". If pressed further, direct inquiry to Corp Counsel office." [ref=e613]':
+                      - generic [ref=e614]: "This property has owner and address that is protected by Judicial Privacy law. The name and address is to be shielded from public view. If public inquires about owner name or address, respond with: \"I am prohibited by state law from releasing this information\". If pressed further, direct inquiry to Corp Counsel office."
+                    - cell "07/28/2025" [ref=e615]:
+                      - generic [ref=e616]: 07/28/2025
+                    - cell [ref=e617]
+                    - cell "No" [ref=e618]:
+                      - generic [ref=e620]: "No"
+                  - 'row "select or unselect row GCS GCS FLAG HIGH JUDICIAL PRIVACY This property has owner and address that is protected by Judicial Privacy law. The name and address is to be shielded from public view. If public inquires about owner name or address, respond with: \"I am prohibited by state law from releasing this information\". If pressed further, direct inquiry to Corp Counsel office. 04/22/2025 No" [ref=e621]':
+                    - cell "select or unselect row" [ref=e622]:
+                      - generic "select or unselect row" [ref=e624] [cursor=pointer]:
+                        - checkbox "select or unselect row" [ref=e625]
+                    - cell "GCS GCS" [ref=e627]:
+                      - generic [ref=e628]: GCS GCS
+                    - cell "FLAG" [ref=e629]:
+                      - generic [ref=e630]: FLAG
+                    - cell "HIGH" [ref=e631]:
+                      - generic [ref=e632]: HIGH
+                    - cell "JUDICIAL PRIVACY" [ref=e633]:
+                      - generic [ref=e634]: JUDICIAL PRIVACY
+                    - cell [ref=e635]
+                    - 'cell "This property has owner and address that is protected by Judicial Privacy law. The name and address is to be shielded from public view. If public inquires about owner name or address, respond with: \"I am prohibited by state law from releasing this information\". If pressed further, direct inquiry to Corp Counsel office." [ref=e636]':
+                      - generic [ref=e637]: "This property has owner and address that is protected by Judicial Privacy law. The name and address is to be shielded from public view. If public inquires about owner name or address, respond with: \"I am prohibited by state law from releasing this information\". If pressed further, direct inquiry to Corp Counsel office."
+                    - cell "04/22/2025" [ref=e638]:
+                      - generic [ref=e639]: 04/22/2025
+                    - cell [ref=e640]
+                    - cell "No" [ref=e641]:
+                      - generic [ref=e643]: "No"
+          - iframe [ref=e339]:
+            
+      - text: 
+      - contentinfo [ref=e340]:
+        - generic [ref=e343]:
+          - paragraph [ref=e344]: 2026 © Catalis
+          - generic [ref=e345]:
+            - paragraph [ref=e346]: Report-/Print engine
+            - paragraph [ref=e347]: "List & Label ® Version 28:"
+            - paragraph [ref=e348]: Copyright combit® GmbH
+  - complementary "Admin Tools Panel" [ref=e349]:
+    - generic [ref=e350]:
+      - heading "Admin Tools" [level=2] [ref=e351]
+      - link "Close panel" [ref=e352] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e353]: 
+    - generic [ref=e355]:
+      - link " Users" [ref=e356] [cursor=pointer]:
+        - /url: /Admin/Users
+        - generic [ref=e358]: 
+        - generic [ref=e359]: Users
+      - link " Lookups" [ref=e360] [cursor=pointer]:
+        - /url: /Admin/Lookups
+        - generic [ref=e362]: 
+        - generic [ref=e363]: Lookups
+  - complementary [ref=e364]:
+    - generic [ref=e365]:
+      - heading "My Worklist" [level=3] [ref=e366]
+      - link "Close My Worklist panel" [ref=e367] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e368]: 
+  - generic [ref=e645] [cursor=pointer]: 
+  - text: 
+  - dialog "Select Properties" [ref=e646]:
+    - document:
+      - generic [ref=e647]:
+        - generic [ref=e648]:
+          - heading "Select Properties" [level=5] [ref=e649]
+          - button "Close" [ref=e650] [cursor=pointer]: 
+        - generic [ref=e654]:
+          - generic [ref=e655]:
+            - generic [ref=e656]:
+              - generic [ref=e657]:
+                - generic [ref=e658]: Assigned To
+                - combobox [active] [ref=e659]:
+                  - option [selected]
+                  - option "Access, Public"
+                  - option "Access with Name Search, Public"
+                  - option "Admin$16, admin"
+                  - option "All, Michael"
+                  - option "ALYSSA PADJEN"
+                  - option "Andrea, Kathryn"
+                  - option "Applications, KC"
+                  - option "AXTON, ANGELA"
+                  - option "Baker, Beth"
+                  - option "Beaudry, Tom"
+                  - option "Birndorf, Joshua"
+                  - option "Bisceglia, Jamie"
+                  - option "Boettcher, Dave"
+                  - option "Bolhuis, Peggy"
+                  - option "BRACKNEY, LINDA"
+                  - option "BRICKNER, RENEE"
+                  - option "Brokmeier, Al"
+                  - option "Buehler, Andy"
+                  - option "BURNETTE, WENDY"
+                  - option "CAMPOBASSO, GINA"
+                  - option "CARRIER, JOHN"
+                  - option "CASTANEDA, GABRIELA"
+                  - option "City of Kenosha, Name Search User"
+                  - option "City of Kenosha, Treasurer"
+                  - option "Clerk, TC Test"
+                  - option "COUNTER, ONE"
+                  - option "COUNTER, TWO"
+                  - option "CounterPC, LandInfo"
+                  - option "Cowles, Kim"
+                  - option "Davis, Gina"
+                  - option "Davis, Nathaniel"
+                  - option "DEBELL, CAROLYN"
+                  - option "DELAROSA, LAURA"
+                  - option "DEMENT, KRIS"
+                  - option "DEUSTER, DONNA"
+                  - option "Dibble, Fran"
+                  - option "Domes, Barry"
+                  - option "DORADO, MICHELE"
+                  - option "Dosedla, Maggie"
+                  - option "EALY, TANYA"
+                  - option "EDQUIST, LEAH"
+                  - option "ELROD, JANET"
+                  - option "EWING, DENISE"
+                  - option "Fasci, Mary"
+                  - option "Fercho, Tim"
+                  - option "FIEBELKORN, BEN"
+                  - option "Fliss, Greg"
+                  - option "Funk, Tina"
+                  - option "GASTALDI, EMILIE"
+                  - option "Gayhart, Donna"
+                  - option "GCS, GCS"
+                  - option "Gelhaus, Bob"
+                  - option "GODSHALL, LUKE"
+                  - option "GOESSL, KATHLEEN"
+                  - option "Goldberg, Ariel"
+                  - option "Graeber, Walter"
+                  - option "GRUNDMAN, JESSICA"
+                  - option "HAHN, SHANNON"
+                  - option "Harmon, Nicole"
+                  - option "HEDLUND, KRISTEN"
+                  - option "HERDA, SHANNON"
+                  - option "Hesse, Theresa"
+                  - option "HOLLOWAY, JOHN"
+                  - option "HOOKSTEAD, AMY"
+                  - option "HOYT, COLLEEN"
+                  - option "Huffman, Amanda"
+                  - option "Ittner, Rachel"
+                  - option "Jacobazzi, Justin"
+                  - option "Jacobson, Teri"
+                  - option "JAGER, LAURA"
+                  - option "Jenks, Mark"
+                  - option "JOHNSON, ROXANNE"
+                  - option "Judt, Edward"
+                  - option "KANGAS, LAUREN"
+                  - option "Kautenburg, Pierce"
+                  - option "KC County Clerk, Name Search User"
+                  - option "KC Treasurer, Name Search User"
+                  - option "KOSKINEN, JAKOB"
+                  - option "KOUBA, JANICE"
+                  - option "Kressin, Jonathan"
+                  - option "Kreuser, Josh"
+                  - option "Kruk, Heather"
+                  - option "KRUK, HEATHER"
+                  - option "KUNATH, JULIE"
+                  - option "LAGUNAS, ANGELINA"
+                  - option "LAIB, JENNIFER"
+                  - option "Laitinen, Paula"
+                  - option "LaMothe, Edie"
+                  - option "LARA, EUGENIA"
+                  - option "LASECKI, ANGELA"
+                  - option "LEACH, BETSY"
+                  - option "LESTONGA, ANDREA"
+                  - option "Lister, LI Temp"
+                  - option "Lyon, Sierra"
+                  - option "Mack, Jennifer"
+                  - option "Maloney, Pam"
+                  - option "Marini, Maria"
+                  - option "MARY SCHUCH-KREBS"
+                  - option "MCINTYRE, MARLA"
+                  - option "Meldgaard, Mark"
+                  - option "Merrill, Patricia"
+                  - option "METALLO, CYNTHIA"
+                  - option "METALLO, JULIA"
+                  - option "MODICA, TRACY"
+                  - option "MORGAN, ARACELI"
+                  - option "Moyer, John"
+                  - option "NAYLOR, SAMONE"
+                  - option "NIKULA, MARIA"
+                  - option "OBrien, Teresa"
+                  - option "Padjen, Alyssa"
+                  - option "Pendlet, PATRICIA"
+                  - option "Peralta, Michelle"
+                  - option "Peterson, Maureen"
+                  - option "Pierce, Heather"
+                  - option "Planning & Devt, KC"
+                  - option "PROCKNOW, AMANDA"
+                  - option "REA, STEVE"
+                  - option "REGI BACHOCHIN"
+                  - option "REKENTHALER, CHRIS"
+                  - option "Ripperger, Dieter"
+                  - option "RUCKER, CALLIE"
+                  - option "Sandoval, Lydia"
+                  - option "Sarzant, Victoria"
+                  - option "SCHANTEK, JUDY"
+                  - option "SCHOBER, DEB"
+                  - option "Schutze, Scott"
+                  - option "Schwartz, Zakry"
+                  - option "SESTERHENN, DONALD"
+                  - option "SHRAMEK, MICHELLE"
+                  - option "Shumway, Nanette"
+                  - option "SIFERD, HELEN"
+                  - option "Slater, Cheryl"
+                  - option "SMITH, JACK"
+                  - option "SMITH, JACK"
+                  - option "SMITH, TIA"
+                  - option "Sorensen, Amanda"
+                  - option "SPENCER, SARA"
+                  - option "SPRINGER, KIM"
+                  - option "STOCKER, JESLYN"
+                  - option "STOCKER, SHERRI"
+                  - option "STONE, KRISTIN"
+                  - option "Storz, JoEllyn"
+                  - option "Strege, William"
+                  - option "SWEATMAN, KATIE"
+                  - option "Tellez, Maricela"
+                  - option "TERI JACOBSON"
+                  - option "THOSS, LAURY"
+                  - option "TOLLARD, PAUL"
+                  - option "TORRES, PHYLLIS"
+                  - option "Town of Brighton, Name Search User"
+                  - option "Town of Brighton, Treasurer"
+                  - option "Town of Paris, Name Search User"
+                  - option "Town of Paris, Treasurer"
+                  - option "Town of Randall, Name Search User"
+                  - option "Town of Randall, Treasurer"
+                  - option "Town of Salem, Name Search User"
+                  - option "Town of Salem, Treasurer"
+                  - option "Town of Somers, Name Search User"
+                  - option "Town of Somers, Treasurer"
+                  - option "Town of Wheatland, Name Search User"
+                  - option "Town of Wheatland, Treasurer"
+                  - option "Townsend, Janee"
+                  - option "Tyler, Aleta"
+                  - option "USER, DTM"
+                  - option "User, Test"
+                  - option "Vandeville, Mike"
+                  - option "Village of Bristol, Name Search User"
+                  - option "Village of Bristol, Treasurer"
+                  - option "Village of Genoa City, Name Search User"
+                  - option "Village of Genoa City, Treasurer"
+                  - option "Village of Paddock Lake, Name Search User"
+                  - option "Village of Paddock Lake, Treasurer"
+                  - option "Village of Pleasant Prairie, Name Search User"
+                  - option "Village of Pleasant Prairie, Treasurer"
+                  - option "Village of Silver Lake, Name Search User"
+                  - option "Village of Silver Lake, Treasurer"
+                  - option "Village of Somers, Name Search User"
+                  - option "Village of Somers, Treasurer"
+                  - option "Village of Twin Lakes, Name Search User"
+                  - option "Village of Twin Lakes, Treasurer"
+                  - option "Vita, Rocco"
+                  - option "VOS, DEBORAH"
+                  - option "Waligora, Regi"
+                  - option "WASWO, SABRINA"
+                  - option "WEBB, APRIL"
+                  - option "Weis, Jane"
+                  - option "WOODALL, VERONICA"
+                  - option "Zanotti, Cynthia"
+              - generic [ref=e660]:
+                - generic [ref=e661]: Level *
+                - combobox [ref=e662]:
+                  - option
+                  - option "HIGH" [selected]
+                  - option "LOW"
+                  - option "MEDIUM"
+              - generic [ref=e663]:
+                - generic [ref=e664]: Type *
+                - combobox [ref=e665]:
+                  - option
+                  - option "2019 PENALTY"
+                  - option "ACTIVATED-MUNI CHNG"
+                  - option "ADDRESSCHANGED"
+                  - option "AG USE"
+                  - option "AGREEMENT" [selected]
+                  - option "ALLCITYTMC"
+                  - option "ALLXCITYTMC"
+                  - option "BANKRUPTCY"
+                  - option "BANKRUPTCY NOTE"
+                  - option "BANKRUPTCY-FROZEN RT"
+                  - option "BNKRPT FLG-CHLD PRCL"
+                  - option "BNKRPTCY - CLOSED"
+                  - option "BNKRPTCY - W/O PMTS"
+                  - option "BNKRPTCY - WITH PMTS"
+                  - option "CALL"
+                  - option "CERTIFICATE CHANGE"
+                  - option "CNTYOWNEDLAND"
+                  - option "COMM WITH MUNI"
+                  - option "COMPLETED PMT PLAN"
+                  - option "CONTACT INFORMATION"
+                  - option "CONTAM - CURRENT"
+                  - option "CONTAM - HISTORICAL"
+                  - option "CONTAMINATED-MSG"
+                  - option "CONVERSION-TAX"
+                  - option "CORP CON OPINION"
+                  - option "CORRESPONDENCE"
+                  - option "DECEASED-MSG"
+                  - option "DECEASED-UNKNOWN ADD"
+                  - option "DEED IN ERROR"
+                  - option "DEEDED"
+                  - option "DEEDED CURRENT YEAR"
+                  - option "DEEDED-CHLD PRCL"
+                  - option "DEFAULT PAYMENT PLAN"
+                  - option "DEL TAX MAIL ADDRESS"
+                  - option "DISREGARD"
+                  - option "DISTRICT CHANGE"
+                  - option "DO NOT TAX DEED"
+                  - option "DONOTGENERATENOTICES"
+                  - option "ENVIRONMENTAL"
+                  - option "FAILED PAYMENT PLAN"
+                  - option "FINAL NOTICE"
+                  - option "FLOODPLAIN"
+                  - option "FORECLOSURE"
+                  - option "FORECLOSURE NOTE"
+                  - option "HAND ALLOCATION"
+                  - option "INACTIVATED-MUNI CHG"
+                  - option "INREM-FLAG"
+                  - option "INTERESTEDPARTY-FLAG"
+                  - option "JE CERT PROC"
+                  - option "JE DEED PROC"
+                  - option "JUDICIAL PRIVACY"
+                  - option "LATE-WRONG PYMT"
+                  - option "LEGAL DESCRIPTION"
+                  - option "LMC"
+                  - option "LMC-PRIVATE"
+                  - option "LOTTERY CREDIT"
+                  - option "MAILING ADD ERROR"
+                  - option "MESSAGE-TAX"
+                  - option "MUNI"
+                  - option "MUNI ERROR"
+                  - option "OMITTED TAX"
+                  - option "OUTLOT-FLAG"
+                  - option "P & D NOTES"
+                  - option "PAYMENT PLAN"
+                  - option "PAYMENT PROB"
+                  - option "PYMT BACKOUT"
+                  - option "PYMT FORWARDED"
+                  - option "PYMT PROBLEMS"
+                  - option "QUIT CLAIM-CTD"
+                  - option "RAZING - FLAG"
+                  - option "RETURNED CHECK"
+                  - option "RETURNED MAIL"
+                  - option "SAFEATHOME"
+                  - option "TAX DEED APP NOTES"
+                  - option "TAX DEED NOTES"
+                  - option "TAX DEEDED RETAINED"
+                  - option "TAX DEEDED ROLL FWD"
+                  - option "TMC"
+                  - option "WETLAND"
+                  - option "WRITE OFFS"
+            - generic [ref=e667]:
+              - generic [ref=e668]: Message
+              - textbox [ref=e669]: test automation
+            - generic [ref=e670]:
+              - generic [ref=e671]:
+                - generic [ref=e672]: Expiration Date
+                - generic [ref=e673]:
+                  - textbox "Select date" [ref=e674]: 05/31/2026 12:00 am
+                  - generic [ref=e676]:
+                    - generic: 
+              - generic [ref=e677]:
+                - generic [ref=e678]: Reminder
+                - combobox [ref=e679]:
+                  - option
+                  - option "No Reminder" [selected]
+                  - option "5 Minutes"
+                  - option "10 Minutes"
+                  - option "15 Minutes"
+                  - option "30 Minutes"
+                  - option "45 Minutes"
+                  - option "1 Hour"
+                  - option "2 Hours"
+                  - option "3 Hours"
+                  - option "4 Hours"
+                  - option "5 Hours"
+                  - option "6 Hours"
+                  - option "12 Hours"
+                  - option "1 Day"
+                  - option "2 Days"
+                  - option "3 Days"
+                  - option "4 Days"
+                  - option "5 Days"
+                  - option "6 Days"
+                  - option "7 Days"
+              - generic [ref=e681] [cursor=pointer]:
+                - checkbox "Confidential" [ref=e682]
+                - text: Confidential
+          - generic [ref=e684]:
+            - generic [ref=e685]: Properties
+            - list
+        - generic [ref=e687]:
+          - generic [ref=e689]:
+            - text: Created on 06/03/2026 02:07 PM by GCS GCS.
+            - text: Last updated 06/03/2026 02:07 PM by GCS GCS.
+          - generic [ref=e690]:
+            - button "Save" [ref=e691] [cursor=pointer]
+            - button "Cancel" [ref=e692] [cursor=pointer]
+  - text: 
+  - text:          

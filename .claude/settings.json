@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_select_option",
+      "Bash(npx tsc *)",
+      "mcp__playwright__browser_close"
+    ]
+  }
+}

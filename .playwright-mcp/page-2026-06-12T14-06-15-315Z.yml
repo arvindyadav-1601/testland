@@ -1,0 +1,313 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - text: 
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - banner [ref=e6]:
+          - link "Catalis" [ref=e7] [cursor=pointer]:
+            - /url: /
+            - heading "Catalis" [level=3] [ref=e8]
+        - button "Toggle navigation sidebar" [ref=e10] [cursor=pointer]
+      - navigation "Main Navigation" [ref=e12]:
+        - list [ref=e14]:
+          - listitem [ref=e15]:
+            - link "Welcome GCS" [ref=e16] [cursor=pointer]:
+              - /url: /MyProfile
+              - heading "Welcome GCS" [level=4] [ref=e17]:
+                - generic [ref=e18]: Welcome GCS
+          - listitem [ref=e19]:
+            - 'link "Department: treasurer" [ref=e20] [cursor=pointer]':
+              - /url: "#"
+              - 'heading "Department: treasurer" [level=4] [ref=e21]':
+                - generic [ref=e22]: "Department: treasurer"
+          - listitem [ref=e23]:
+            - link " Home" [ref=e24] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e25]: 
+              - generic [ref=e26]: Home
+          - listitem [ref=e27]:
+            - heading "My Work" [level=4] [ref=e28]
+            - text: 
+          - listitem [ref=e29]:
+            - link "My Wham" [ref=e30] [cursor=pointer]:
+              - /url: /MyWham
+              - generic [ref=e31]: My Wham
+          - listitem [ref=e33]:
+            - link "My Processes 3" [ref=e34] [cursor=pointer]:
+              - /url: /MyProcesses
+              - generic [ref=e35]: My Processes
+              - generic "3 items in My Processes." [ref=e37]: "3"
+          - listitem [ref=e38]:
+            - heading "Catalis" [level=4] [ref=e39]
+            - text: 
+          - listitem [ref=e40]:
+            - link "Cash Receipting" [ref=e41] [cursor=pointer]:
+              - /url: /CashReceipting
+              - generic [ref=e42]: Cash Receipting
+          - listitem [ref=e44]:
+            - link "Bill Maintenance" [ref=e45] [cursor=pointer]:
+              - /url: /BillMaintenance/RealEstate/Search
+              - generic [ref=e46]: Bill Maintenance
+          - listitem [ref=e47]:
+            - link "Processes " [ref=e48] [cursor=pointer]:
+              - /url: javascript:;
+              - generic [ref=e49]: Processes
+              - generic [ref=e50]: 
+          - listitem [ref=e51]:
+            - link "Reports " [ref=e52] [cursor=pointer]:
+              - /url: javascript:;
+              - generic [ref=e53]: Reports
+              - generic [ref=e54]: 
+          - listitem [ref=e55]:
+            - link "Settings " [ref=e56] [cursor=pointer]:
+              - /url: javascript:;
+              - generic [ref=e57]: Settings
+              - generic [ref=e58]: 
+          - listitem [ref=e59]:
+            - link "Catalis Help" [ref=e60] [cursor=pointer]:
+              - /url: /Home/Help
+              - generic [ref=e61]: Catalis Help
+          - listitem [ref=e62]:
+            - link "About Catalis" [ref=e63] [cursor=pointer]:
+              - /url: /Home/AboutUs
+              - generic [ref=e64]: About Catalis
+      - region "Logged-in User Settings" [ref=e67]:
+        - generic [ref=e69]:
+          - link "My Profile" [ref=e70] [cursor=pointer]:
+            - /url: /MyProfile
+            - generic: 
+          - link "Logout" [ref=e71] [cursor=pointer]:
+            - /url: /Login/Logout
+            - generic: 
+    - generic [ref=e72]:
+      - main [ref=e73]:
+        - generic [ref=e74]:
+          - generic [ref=e75]:
+            - generic [ref=e78]:
+              - heading "My Wham" [level=1] [ref=e79]
+              - generic [ref=e80]:
+                - link "Home" [ref=e81] [cursor=pointer]:
+                  - /url: /
+                  - generic [ref=e82]: 
+                - link "My Wham" [ref=e84] [cursor=pointer]:
+                  - /url: ""
+            - generic [ref=e86]:
+              - heading "Search" [level=2] [ref=e89]
+              - generic [ref=e92]:
+                - generic [ref=e93]:
+                  - generic [ref=e94]:
+                    - generic [ref=e96]: Start
+                    - generic [ref=e98]: End
+                  - generic [ref=e99]:
+                    - generic [ref=e100]: Reminder Date
+                    - generic [ref=e102]:
+                      - textbox "Starting Reminder Date" [ref=e103]:
+                        - /placeholder: From
+                      - generic [ref=e105]: "-"
+                      - textbox "Ending Reminder Date" [ref=e106]:
+                        - /placeholder: To
+                  - generic [ref=e107]:
+                    - generic [ref=e108]: Expiration Date
+                    - generic [ref=e110]:
+                      - textbox "Starting Expiration Date" [ref=e111]:
+                        - /placeholder: From
+                      - generic [ref=e113]: "-"
+                      - textbox "Ending Expiration Date" [ref=e114]:
+                        - /placeholder: To
+                  - generic [ref=e115]:
+                    - generic [ref=e116]: Created On
+                    - generic [ref=e118]:
+                      - textbox "Starting Message Creation Date" [active] [ref=e119]:
+                        - /placeholder: From
+                        - text: 12/31/2026
+                      - generic [ref=e121]: "-"
+                      - textbox "To" [ref=e122]: 12/31/2026
+                  - generic [ref=e123]:
+                    - generic [ref=e124]: Updated On
+                    - generic [ref=e126]:
+                      - textbox "From" [ref=e127]
+                      - generic [ref=e129]: "-"
+                      - textbox "To" [ref=e130]
+                - generic [ref=e132]:
+                  - generic [ref=e133]:
+                    - generic [ref=e134]:
+                      - generic [ref=e135]: Category
+                      - combobox "Category" [ref=e136]:
+                        - option [selected]
+                        - option "FLAG"
+                        - option "MESSAGE"
+                    - generic [ref=e137]:
+                      - generic [ref=e138]: Types
+                      - combobox "Types" [ref=e139]:
+                        - option [selected]
+                        - option "2019 PENALTY"
+                        - option "ACTIVATED-MUNI CHNG"
+                        - option "ADDRESSCHANGED"
+                        - option "AG USE"
+                        - option "AGREEMENT"
+                        - option "ALLCITYTMC"
+                        - option "ALLXCITYTMC"
+                        - option "BANKRUPTCY"
+                        - option "BANKRUPTCY NOTE"
+                        - option "BANKRUPTCY-FROZEN RT"
+                        - option "BNKRPT FLG-CHLD PRCL"
+                        - option "BNKRPTCY - CLOSED"
+                        - option "BNKRPTCY - W/O PMTS"
+                        - option "BNKRPTCY - WITH PMTS"
+                        - option "CALL"
+                        - option "CERTIFICATE CHANGE"
+                        - option "CNTYOWNEDLAND"
+                        - option "COMM WITH MUNI"
+                        - option "COMPLETED PMT PLAN"
+                        - option "CONTACT INFORMATION"
+                        - option "CONTAM - CURRENT"
+                        - option "CONTAM - HISTORICAL"
+                        - option "CONTAMINATED-MSG"
+                        - option "CONVERSION-TAX"
+                        - option "CORP CON OPINION"
+                        - option "CORRESPONDENCE"
+                        - option "DECEASED-MSG"
+                        - option "DECEASED-UNKNOWN ADD"
+                        - option "DEED IN ERROR"
+                        - option "DEEDED"
+                        - option "DEEDED CURRENT YEAR"
+                        - option "DEEDED-CHLD PRCL"
+                        - option "DEFAULT PAYMENT PLAN"
+                        - option "DEL TAX MAIL ADDRESS"
+                        - option "DISREGARD"
+                        - option "DISTRICT CHANGE"
+                        - option "DO NOT TAX DEED"
+                        - option "DONOTGENERATENOTICES"
+                        - option "ENVIRONMENTAL"
+                        - option "FAILED PAYMENT PLAN"
+                        - option "FINAL NOTICE"
+                        - option "FLOODPLAIN"
+                        - option "FORECLOSURE"
+                        - option "FORECLOSURE NOTE"
+                        - option "HAND ALLOCATION"
+                        - option "INACTIVATED-MUNI CHG"
+                        - option "INREM-FLAG"
+                        - option "INTERESTEDPARTY-FLAG"
+                        - option "JE CERT PROC"
+                        - option "JE DEED PROC"
+                        - option "JUDICIAL PRIVACY"
+                        - option "LANDLOCKED"
+                        - option "LATE-WRONG PYMT"
+                        - option "LEGAL DESCRIPTION"
+                        - option "LMC"
+                        - option "LMC-PRIVATE"
+                        - option "LOTTERY CREDIT"
+                        - option "MAILING ADD ERROR"
+                        - option "MESSAGE-TAX"
+                        - option "MUNI"
+                        - option "MUNI ERROR"
+                        - option "OMITTED TAX"
+                        - option "OUTLOT-FLAG"
+                        - option "P & D NOTES"
+                        - option "PAYMENT PLAN"
+                        - option "PAYMENT PROB"
+                        - option "PYMT BACKOUT"
+                        - option "PYMT FORWARDED"
+                        - option "PYMT PROBLEMS"
+                        - option "QUIT CLAIM-CTD"
+                        - option "RAZING - FLAG"
+                        - option "RETURNED CHECK"
+                        - option "RETURNED MAIL"
+                        - option "SAFEATHOME"
+                        - option "TAX DEED APP NOTES"
+                        - option "TAX DEED NOTES"
+                        - option "TAX DEEDED RETAINED"
+                        - option "TAX DEEDED ROLL FWD"
+                        - option "TMC"
+                        - option "WETLAND"
+                        - option "WRITE OFFS"
+                    - generic [ref=e140]:
+                      - generic [ref=e141]: Levels
+                      - combobox "Levels" [ref=e142]:
+                        - option [selected]
+                        - option "HIGH"
+                        - option "LOW"
+                        - option "MEDIUM"
+                  - generic [ref=e143]:
+                    - generic [ref=e144]:
+                      - generic [ref=e145]: Status
+                      - combobox "Status" [ref=e146]:
+                        - option "All" [selected]
+                        - option "Current"
+                        - option "Expired"
+                    - generic [ref=e147]:
+                      - generic [ref=e148]: Message
+                      - textbox "Message" [ref=e149]
+                    - generic [ref=e150]:
+                      - generic [ref=e151] [cursor=pointer]:
+                        - checkbox "Include Confidential" [checked] [ref=e152]
+                        - text: Include Confidential
+                      - button "Reset" [ref=e154] [cursor=pointer]
+                      - button "Search" [ref=e155] [cursor=pointer]
+            - generic [ref=e157]:
+              - generic [ref=e158]:
+                - heading "Search Results" [level=2] [ref=e160]
+                - generic [ref=e162]:
+                  - button "" [ref=e163] [cursor=pointer]:
+                    - generic: 
+                  - button "" [ref=e164] [cursor=pointer]:
+                    - generic: 
+                  - button "" [disabled] [ref=e165]:
+                    - generic: 
+              - table "Search Results" [ref=e399]:
+                - rowgroup [ref=e400]:
+                  - row "Checkbox To Category Level Type Properties Message Creation Date Expiration Date Confidential" [ref=e401]:
+                    - columnheader "Checkbox" [ref=e402]:
+                      - generic "select or unselect all rows" [ref=e404] [cursor=pointer]:
+                        - checkbox "select or unselect all rows" [ref=e405]
+                    - columnheader "To" [ref=e407] [cursor=pointer]:
+                      - generic [ref=e408]: To
+                    - columnheader "Category" [ref=e409] [cursor=pointer]:
+                      - generic [ref=e410]: Category
+                    - columnheader "Level" [ref=e411] [cursor=pointer]:
+                      - generic [ref=e412]: Level
+                    - columnheader "Type" [ref=e413] [cursor=pointer]:
+                      - generic [ref=e414]: Type
+                    - columnheader "Properties" [ref=e415] [cursor=pointer]:
+                      - generic [ref=e416]: Properties
+                    - columnheader "Message" [ref=e417] [cursor=pointer]:
+                      - generic [ref=e418]: Message
+                    - columnheader "Creation Date" [ref=e419] [cursor=pointer]:
+                      - generic [ref=e420]: Creation Date
+                    - columnheader "Expiration Date" [ref=e421] [cursor=pointer]:
+                      - generic [ref=e422]: Expiration Date
+                    - columnheader "Confidential" [ref=e423] [cursor=pointer]:
+                      - generic [ref=e424]: Confidential
+                - rowgroup [ref=e425]: No records found
+          - iframe [ref=e339]:
+            
+      - text: 
+      - contentinfo [ref=e340]:
+        - generic [ref=e343]:
+          - paragraph [ref=e344]: 2026 © Catalis
+          - generic [ref=e345]:
+            - paragraph [ref=e346]: Report-/Print engine
+            - paragraph [ref=e347]: "List & Label ® Version 28:"
+            - paragraph [ref=e348]: Copyright combit® GmbH
+  - complementary "Admin Tools Panel" [ref=e349]:
+    - generic [ref=e350]:
+      - heading "Admin Tools" [level=2] [ref=e351]
+      - link "Close panel" [ref=e352] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e353]: 
+    - generic [ref=e355]:
+      - link " Users" [ref=e356] [cursor=pointer]:
+        - /url: /Admin/Users
+        - generic [ref=e358]: 
+        - generic [ref=e359]: Users
+      - link " Lookups" [ref=e360] [cursor=pointer]:
+        - /url: /Admin/Lookups
+        - generic [ref=e362]: 
+        - generic [ref=e363]: Lookups
+  - complementary [ref=e364]:
+    - generic [ref=e365]:
+      - heading "My Worklist" [level=3] [ref=e366]
+      - link "Close My Worklist panel" [ref=e367] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e368]: 
+  - text:   

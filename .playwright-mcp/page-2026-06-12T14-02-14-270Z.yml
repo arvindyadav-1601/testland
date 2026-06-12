@@ -1,0 +1,17 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - main [ref=e5]:
+      - generic [ref=e7]:
+        - heading "Welcome to Catalis" [level=1] [ref=e8]
+        - paragraph [ref=e10]: Login to begin
+      - generic [ref=e13]:
+        - heading "Sign In To Account" [level=2] [ref=e14]
+        - generic [ref=e15]:
+          - textbox "Username" [active] [ref=e17]
+          - textbox "Password" [ref=e19]
+          - button "Sign In" [ref=e21] [cursor=pointer]
+    - contentinfo [ref=e22]:
+      - generic [ref=e24]:
+        - paragraph [ref=e25]: 2026 © Catalis
+        - text: "Report-/Print engine List & Label ® Version 28: Copyright combit® GmbH"
+  - text:  

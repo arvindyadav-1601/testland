@@ -83,7 +83,7 @@ export class WhamTableSection extends BasePage {
             page.locator("#searchResults");
 
         this.tableScrollContainer =
-            page.locator("#searchResults");
+            page.locator('div.kt-datatable.kt-datatable--default.kt-datatable--scroll.kt-datatable--loaded');
 
         this.tableRows =
             page.locator(
@@ -99,14 +99,18 @@ export class WhamTableSection extends BasePage {
                 "label[aria-label='select or unselect all rows'] span"
             );
 
+        // Scoped to #searchResults so these can never resolve against another
+        // table on the page (e.g. the property-search modal). The inner span
+        // path is preserved because the UI uses a custom checkbox widget whose
+        // real <input> is hidden — the clickable target is the span.
         this.firstRowCheckbox =
             page.locator(
-                "tbody tr:nth-child(1) td:nth-child(2) span label span:nth-child(2)"
+                "#searchResults tbody tr:nth-child(1) td:nth-child(2) span label span:nth-child(2)"
             );
 
         this.secondRowCheckbox =
             page.locator(
-                "tbody tr:nth-child(2) td:nth-child(2) span label span:nth-child(2)"
+                "#searchResults tbody tr:nth-child(2) td:nth-child(2) span label span:nth-child(2)"
             );
 
         // =================================================
@@ -183,31 +187,6 @@ export class WhamTableSection extends BasePage {
     }
 
     // =====================================================
-    // TABLE VALIDATIONS
-    // =====================================================
-
-    async validateSearchResults(): Promise<void> {
-
-        await this.validateElementVisible(
-            this.searchResultsTable
-        );
-    }
-
-    async validateNoRecordsFound(): Promise<void> {
-
-        await this.validateElementVisible(
-            this.noRecordsFoundMessage
-        );
-    }
-
-    async validateConfidentialBadge(): Promise<void> {
-
-        await this.validateElementVisible(
-            this.confidentialBadge
-        );
-    }
-
-    // =====================================================
     // ROW SELECTION
     // =====================================================
 
@@ -246,38 +225,6 @@ export class WhamTableSection extends BasePage {
     async clickDelete(): Promise<void> {
 
         await this.clickElement(
-            this.deleteButton
-        );
-    }
-
-    // =====================================================
-    // BUTTON VALIDATIONS
-    // =====================================================
-
-    async validateDownloadButtonEnabled(): Promise<void> {
-
-        await this.validateElementEnabled(
-            this.downloadButton
-        );
-    }
-
-    async validateDeleteButtonEnabled(): Promise<void> {
-
-        await this.validateElementEnabled(
-            this.deleteButton
-        );
-    }
-
-    async validateDownloadButtonDisabled(): Promise<void> {
-
-        await this.validateElementDisabled(
-            this.downloadButton
-        );
-    }
-
-    async validateDeleteButtonDisabled(): Promise<void> {
-
-        await this.validateElementDisabled(
             this.deleteButton
         );
     }
@@ -349,6 +296,27 @@ export class WhamTableSection extends BasePage {
     async openFirstRowForEdit(): Promise<void> {
 
         await this.tableRows
+            .first()
+            .click();
+    }
+
+    // Opens the first result row whose Type cell matches `type` (e.g.
+    // "AGREEMENT"). Scoped to #searchResults so it can never match a row in
+    // another table on the page. Exact match avoids "BANKRUPTCY" also hitting
+    // "BANKRUPTCY NOTE".
+    async openRowByType(
+        type: string
+    ): Promise<void> {
+
+        const row =
+            this.tableRows.filter({
+                has: this.page.getByRole(
+                    "cell",
+                    { name: type, exact: true }
+                )
+            });
+
+        await row
             .first()
             .click();
     }

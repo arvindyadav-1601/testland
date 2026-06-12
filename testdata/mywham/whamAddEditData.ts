@@ -1,4 +1,26 @@
-export const WhamAddEditData = {
+/**
+ * Shape of the Add/Edit WHAM data set. Typing the test data means a typo or
+ * missing field is caught at compile time instead of failing mid-test.
+ */
+export interface WhamAddEditDataShape {
+    assignedUser: string;
+    category: string;
+    type: string;
+    level: string;
+    message: string;
+    expirationDate: string;
+    reminder: string;
+    confidential: boolean;
+    confidentialMessage: string;
+    updatedCategory: string;
+    updatedType: string;
+    updatedLevel: string;
+    updatedMessage: string;
+    updatedExpirationDate: string;
+    updatedReminder: string;
+}
+
+export const WhamAddEditData: WhamAddEditDataShape = {
 
     // =====================================================
     // ADD DATA

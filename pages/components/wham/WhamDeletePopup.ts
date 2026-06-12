@@ -19,6 +19,8 @@ export class WhamDeletePopup extends BasePage {
 
     readonly cancelButton: Locator;
 
+    readonly closeIcon: Locator;
+
     // =====================================================
     // CONSTRUCTOR
     // =====================================================
@@ -46,6 +48,12 @@ export class WhamDeletePopup extends BasePage {
             page.locator(
                 "button[class='btn btn-secondary']"
             );
+
+        // jconfirm's "X" close control in the dialog header.
+        this.closeIcon =
+            page.locator(
+                ".jconfirm-closeIcon"
+            );
     }
 
     // =====================================================
@@ -66,14 +74,10 @@ export class WhamDeletePopup extends BasePage {
         );
     }
 
-    // =====================================================
-    // VALIDATIONS
-    // =====================================================
+    async clickCloseIcon(): Promise<void> {
 
-    async validateDeletePopupVisible(): Promise<void> {
-
-        await this.validateElementVisible(
-            this.popupContainer
+        await this.clickElement(
+            this.closeIcon
         );
     }
 }

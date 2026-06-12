@@ -122,27 +122,6 @@ export class WhamValidationPopup extends BasePage {
     // VALIDATION POPUP METHODS
     // =====================================================
 
-    async validateErrorPopupVisible(): Promise<void> {
-
-        await this.validateElementVisible(
-            this.validationPopupTitle
-        );
-
-        await this.validateElementVisible(
-            this.validationPopupMessage
-        );
-    }
-
-    async validateErrorMessage(
-        expectedMessage: string
-    ): Promise<void> {
-
-        await this.validateText(
-            this.validationPopupMessage,
-            expectedMessage
-        );
-    }
-
     async closeValidationPopup(): Promise<void> {
 
         await this.clickElement(
@@ -151,44 +130,8 @@ export class WhamValidationPopup extends BasePage {
     }
 
     // =====================================================
-    // REQUIRED FIELD VALIDATIONS
-    // =====================================================
-
-    async validateRequiredMessageValidation(): Promise<void> {
-
-        await this.validateElementVisible(
-            this.requiredMessageValidation
-        );
-    }
-
-    async validateRequiredTypeValidation(): Promise<void> {
-
-        await this.validateElementVisible(
-            this.requiredTypeValidation
-        );
-    }
-
-    async validateRequiredFieldValidations(): Promise<void> {
-
-        await this.validateRequiredMessageValidation();
-
-        await this.validateRequiredTypeValidation();
-    }
-
-    // =====================================================
     // DELETE POPUP METHODS
     // =====================================================
-
-    async validateDeletePopupVisible(): Promise<void> {
-
-        await this.validateElementVisible(
-            this.deletePopupContainer
-        );
-
-        await this.validateElementVisible(
-            this.deletePopupTitle
-        );
-    }
 
     async confirmDelete(): Promise<void> {
 
@@ -201,17 +144,6 @@ export class WhamValidationPopup extends BasePage {
 
         await this.clickElement(
             this.deleteCancelButton
-        );
-    }
-
-    // =====================================================
-    // NO RECORDS VALIDATION
-    // =====================================================
-
-    async validateNoRecordsFound(): Promise<void> {
-
-        await this.validateElementVisible(
-            this.noRecordsFoundMessage
         );
     }
 }

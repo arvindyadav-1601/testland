@@ -45,7 +45,6 @@ export class WhamPropertyModal extends BasePage {
     // MODAL
     // =====================================================
 
-    readonly modalContainer: Locator;
     readonly openPropertySearchButton: Locator;
 
     readonly closePropertyModalButton: Locator;
@@ -110,8 +109,9 @@ export class WhamPropertyModal extends BasePage {
             );
 
         this.cancelButton =
-            page.locator(
-                "body > div:nth-child(10) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > button:nth-child(2)"
+            page.getByRole(
+                "button",
+                { name: /cancel/i }
             );
 
         this.propertySearchResults =
@@ -133,10 +133,13 @@ export class WhamPropertyModal extends BasePage {
                 "table[id='propertySearchTable'] thead span span"
             );
 
+        // First result row's custom checkbox. Previously hardcoded a specific
+        // row id (propertySearchTable_row_1352428) which only existed in one
+        // data environment; scope to the first row of the property table instead.
         this.firstPropertyCheckbox =
             page.locator(
-                "tr[id='propertySearchTable_row_1352428'] span span"
-            );
+                "table[id='propertySearchTable'] tbody tr"
+            ).first().locator("span span");
 
         this.noRecordsFoundMessage =
             page.locator(
@@ -246,13 +249,6 @@ export class WhamPropertyModal extends BasePage {
         );
     }
 
-    async validatePropertyResults(): Promise<void> {
-
-        await this.validateElementVisible(
-            this.propertySearchResults.first()
-        );
-    }
-
     // =====================================================
     // PROPERTY SELECTION
     // =====================================================
@@ -292,7 +288,8 @@ export class WhamPropertyModal extends BasePage {
             this.openPropertySearchButton
         );
 
-        await this.validateElementVisible(
+        // Wait (not assert) for the modal to be ready; the spec asserts.
+        await this.waitForElementVisible(
             this.propertyModalContainer
         );
     }
@@ -302,27 +299,6 @@ export class WhamPropertyModal extends BasePage {
         await this.clickElement(
             this.closePropertyModalButton
         );
-    }
-
-    // =====================================================
-    // VALIDATIONS
-    // =====================================================
-
-    async validateNoRecordsFound(): Promise<void> {
-
-        await this.validateElementVisible(
-            this.noRecordsFoundMessage
-        );
-    }
-
-    async validatePropertyTableVisible(): Promise<void> {
-
-        await this.validateElementVisible(
-            this.propertySearchTable
-        );
-    }
-    async validatePropertyModalContainer(): Promise<void> {
-        await this.validateElementVisible(this.propertyModalContainer);
     }
 
     // =====================================================

@@ -1,10 +1,12 @@
 import {
     Locator,
-    Page,
-    expect
+    Page
 } from "@playwright/test";
 
 import { BasePage } from "../../BasePage";
+
+import { WhamAddEditDataShape }
+    from "../../../testdata/mywham/whamAddEditData";
 
 export class WhamAddEditModal extends BasePage {
 
@@ -25,8 +27,6 @@ export class WhamAddEditModal extends BasePage {
     // =====================================================
 
     readonly modalTitle: Locator;
-
-    readonly modalContainer: Locator;
 
     // =====================================================
     // DROPDOWNS
@@ -59,10 +59,6 @@ export class WhamAddEditModal extends BasePage {
     // =====================================================
     // VALIDATIONS
     // =====================================================
-
-    readonly requiredMessageValidation: Locator;
-
-    readonly requiredTypeValidation: Locator;
 
     readonly addEditModalContainer: Locator;
 
@@ -109,18 +105,10 @@ export class WhamAddEditModal extends BasePage {
                 ".modal-title"
             );
 
-        this.modalContainer =
+        this.addEditModalContainer =
             page.locator(
-                "body > div:nth-child(3) > div:nth-child(1) > div:nth-child(3) > main:nth-child(1) > div:nth-child(1) > div:nth-child(1)"
+                ".modal-content"
             );
-
-            this.addEditModalContainer =
-
-    page.locator(
-
-        ".modal-content"
-
-    );
 
         // =================================================
         // DROPDOWNS
@@ -193,20 +181,6 @@ export class WhamAddEditModal extends BasePage {
 
                 "#reminderInput"
 
-            );  
-
-        // =================================================
-        // VALIDATIONS
-        // =================================================
-
-        this.requiredMessageValidation =
-            page.locator(
-                "ul[id='parsley-id-9'] li[class='parsley-required']"
-            );
-
-        this.requiredTypeValidation =
-            page.locator(
-                "ul[id='parsley-id-7'] li[class='parsley-required']"
             );
     }
 
@@ -348,7 +322,7 @@ export class WhamAddEditModal extends BasePage {
     // =====================================================
 
     async createWhamMessage(
-        data: any
+        data: WhamAddEditDataShape
     ): Promise<void> {
 
         await this.clickAddButton();
@@ -400,36 +374,8 @@ export class WhamAddEditModal extends BasePage {
     
 
     // =====================================================
-    // VALIDATIONS
+    // ENTER REMINDER
     // =====================================================
-
-    async validateRequiredFields(): Promise<void> {
-
-        await expect(
-            this.requiredMessageValidation
-        ).toBeVisible();
-
-        await expect(
-            this.requiredTypeValidation
-        ).toBeVisible();
-    }
-
-
-async validateAddEditModalVisible(): Promise<void> {
-
-    await this.validateElementVisible(
-
-        this.addEditModalContainer
-
-    );
-
-}
-
-// =====================================================
-
-// ENTER REMINDER
-
-// =====================================================
 
 async enterReminder(
 

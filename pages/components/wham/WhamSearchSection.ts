@@ -1,7 +1,4 @@
-import {
-    Locator,
-    Page
-} from "@playwright/test";
+import { Locator, Page } from "@playwright/test";
 
 import { BasePage } from "../../BasePage";
 
@@ -101,19 +98,11 @@ export class WhamSearchSection extends BasePage {
 
         this.categoryDropdown = page.getByRole('combobox', { name: 'Category' });
 
-
-
         this.typeDropdown = page.getByRole('combobox', { name: 'Types' });
-
-
 
         this.levelDropdown = page.getByRole('combobox', { name: 'Levels' });
 
-
-
         this.statusDropdown = page.getByRole('combobox', { name: 'Status' });
-
-
 
         // =================================================
         // SEARCH FIELDS
@@ -123,8 +112,6 @@ export class WhamSearchSection extends BasePage {
 
         this.confidentialCheckbox = page.getByLabel('Include Confidential');
 
-
-
         // =================================================
         // BUTTONS
         // =================================================
@@ -133,21 +120,6 @@ export class WhamSearchSection extends BasePage {
 
         this.resetButton = page.getByRole('button', { name: 'Reset' });
 
-    }
-
-    // =====================================================
-    // PAGE VALIDATION
-    // =====================================================
-
-    async validateMyWhamPageLoaded(): Promise<void> {
-
-        await this.validateElementVisible(
-            this.myWhamHeading
-        );
-
-        await this.validateElementVisible(
-            this.searchButton
-        );
     }
 
     // =====================================================
@@ -161,13 +133,11 @@ export class WhamSearchSection extends BasePage {
 
         await this.fillInput(
             this.reminderStartDateInput,
-            startDate
-        );
+            startDate);
 
         await this.fillInput(
             this.reminderEndDateInput,
-            endDate
-        );
+            endDate);
     }
 
     async enterExpirationDates(
@@ -266,7 +236,7 @@ export class WhamSearchSection extends BasePage {
     // SEARCH FIELD METHODS
     // =====================================================
 
-    async enterMessage(
+   ? async enterMessage(
         message: string
     ): Promise<void> {
 
@@ -369,60 +339,5 @@ export class WhamSearchSection extends BasePage {
     async resetSearchFilters(): Promise<void> {
 
         await this.clickReset();
-    }
-
-    // =====================================================
-    // FIELD VALIDATIONS
-    // =====================================================
-
-    async validateSearchFieldsVisible(): Promise<void> {
-
-        await this.validateElementVisible(
-            this.reminderStartDateInput
-        );
-
-        await this.validateElementVisible(
-            this.reminderEndDateInput
-        );
-
-        await this.validateElementVisible(
-            this.expirationStartDateInput
-        );
-
-        await this.validateElementVisible(
-            this.expirationEndDateInput
-        );
-
-        await this.validateElementVisible(
-            this.categoryDropdown
-        );
-
-        await this.validateElementVisible(
-            this.typeDropdown
-        );
-
-        await this.validateElementVisible(
-            this.levelDropdown
-        );
-
-        await this.validateElementVisible(
-            this.statusDropdown
-        );
-
-        await this.validateElementVisible(
-            this.searchButton
-        );
-
-        await this.validateElementVisible(
-            this.resetButton
-        );
-    }
-
-    async validateSearchFieldsReset(): Promise<void> {
-
-        await this.validateValue(
-            this.messageTextbox,
-            ""
-        );
     }
 }
