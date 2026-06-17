@@ -41,6 +41,8 @@ export class WhamTableSection extends BasePage {
 
     readonly propertiesColumnHeader: Locator;
 
+    readonly messageColumnHeader: Locator;
+
     readonly creationDateColumnHeader: Locator;
 
     readonly expirationDateColumnHeader: Locator;
@@ -80,14 +82,14 @@ export class WhamTableSection extends BasePage {
         // =================================================
 
         this.searchResultsTable =
-            page.locator("#searchResults");
+            page.locator("#myWhamSearchTable");
 
         this.tableScrollContainer =
-            page.locator('div.kt-datatable.kt-datatable--default.kt-datatable--scroll.kt-datatable--loaded');
+            page.locator('tbody.kt-datatable__body');
 
         this.tableRows =
             page.locator(
-                "#searchResults tbody tr"
+                "thead[class='kt-datatable__head'] tr[class='kt-datatable__row']"
             );
 
         // =================================================
@@ -96,66 +98,49 @@ export class WhamTableSection extends BasePage {
 
         this.selectAllCheckbox =
             page.locator(
-                "label[aria-label='select or unselect all rows'] span"
+                'Checkbox'
             );
 
-        // Scoped to #searchResults so these can never resolve against another
+        // Scoped to #myWhamSearchTable so these can never resolve against another
         // table on the page (e.g. the property-search modal). The inner span
         // path is preserved because the UI uses a custom checkbox widget whose
         // real <input> is hidden — the clickable target is the span.
         this.firstRowCheckbox =
-            page.locator(
-                "#searchResults tbody tr:nth-child(1) td:nth-child(2) span label span:nth-child(2)"
-            );
+            page.locator('td[data-field="checkbox"]').nth(0);
 
         this.secondRowCheckbox =
-            page.locator(
-                "#searchResults tbody tr:nth-child(2) td:nth-child(2) span label span:nth-child(2)"
-            );
+            page.locator('td[data-field="checkbox"]').nth(1);
 
         // =================================================
         // HEADERS
         // =================================================
 
         this.toColumnHeader =
-            page.locator(
-                "th[data-field='To'] span"
-            );
+            page.locator('th[data-field="To"]');
 
         this.categoryColumnHeader =
-            page.locator(
-                "th[data-field='Category']"
-            );
+            page.locator('th[data-field="Category"]');
 
         this.levelColumnHeader =
-            page.locator(
-                "th[data-field='Level']"
-            );
+            page.locator('th[data-field="Level"]');
 
         this.typeColumnHeader =
-            page.locator(
-                "th[data-field='Type']"
-            );
+            page.locator('th[data-field="Type"]');
 
         this.propertiesColumnHeader =
-            page.locator(
-                "th[data-field='Properties']"
-            );
+            page.locator('th[data-field="Properties"]');
+        
+        this.messageColumnHeader =
+            page.locator('th[data-field="Message"]');    
 
-        this.creationDateColumnHeader =
-            page.locator(
-                "th[data-field='Creation Date']"
-            );
+        this.creationDateColumnHeader = 
+            page.locator('th[data-field="Creation Date"]');
 
         this.expirationDateColumnHeader =
-            page.locator(
-                "th[data-field='Expiration Date']"
-            );
+            page.locator('th[data-field="Expiration Date"]');
 
         this.confidentialColumnHeader =
-            page.locator(
-                "th[data-field='Confidential']"
-            );
+            page.locator('th[data-field="Confidential"]');
 
         // =================================================
         // BUTTONS
