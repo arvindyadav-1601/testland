@@ -7,9 +7,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.60.0",
+    "@playwright/test": "^1.61.0",
     "@types/node": "^25.9.1",
-    "allure-playwright": "^3.9.0"
+    "allure-commandline": "^2.42.1",
+    "allure-playwright": "^3.10.0"
   },
   "dependencies": {
     "@faker-js/faker": "^10.4.0",
@@ -18,12 +19,14 @@
     "xlsx": "^0.18.5"
   },
   "scripts": {
+    "setup": "npm install && npx playwright install",
+    "install:browsers": "playwright install",
     "test": "playwright test",
     "test:chrome": "playwright test --project=chromium",
     "test:headed": "playwright test --headed",
     "test:debug": "playwright test --debug",
     "report": "playwright show-report",
-    "allure:gen": "allure generate allure-results --clean",
+    "allure:gen": "allure generate allure-results --clean -o allure-report",
     "allure:open": "allure open allure-results"
   }
 }
