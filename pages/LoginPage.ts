@@ -70,6 +70,10 @@ export class LoginPage extends BasePage {
             "Username or password is incorrect."
         );
 
+        // =================================================
+        // WELCOME MESSAGE
+        // =================================================
+
         this.welcomeMessage = 
         page.getByRole(
             "heading", { name: "Welcome to Catalis" }
@@ -84,6 +88,7 @@ export class LoginPage extends BasePage {
         );
     }
 
+//Methods
     
     async verifyLoginPageLoaded(): Promise<void> {
 

@@ -58,15 +58,179 @@ WHAM specs import `test` from `../../fixtures` (not `@playwright/test`) to get `
 The login spec imports `test` directly from `@playwright/test`.
 
 ### Page Object Model
-- `pages/BasePage.ts` — base class wrapping common Playwright actions (waits, clicks, fills,
-  dropdowns, table helpers, validation/`expect` wrappers, downloads, logging). All page objects and
-  components extend this.
+- `pages/BasePage.ts` — base class wrapping all common Playwright actions. All page objects and
+  components extend this. See **BasePage API** section below for the full method reference.
 - `pages/LoginPage.ts`, `pages/MyWhamPage.ts` — page objects.
 - `pages/components/wham/` — `MyWhamPage` is composed of section/component objects
   (`WhamSearchSection`, `WhamTableSection`, `WhamAddEditModal`, `WhamPropertyModal`,
   `WhamValidationPopup`, `WhamDeletePopup`), each its own `BasePage` subclass. Access them via
   `myWhamPage.search`, `myWhamPage.table`, etc. Tests typically instantiate
   `new MyWhamPage(authenticatedPage)` and drive the components.
+
+### BasePage API
+
+#### Navigation
+| Method | Description |
+|---|---|
+| `navigateTo(url, waitState?)` | Navigates and waits. Default `waitState` is `domcontentloaded` (not `networkidle`). |
+| `waitForPageLoad(state?)` | Waits for load state. Default `domcontentloaded`. |
+| `reloadPage()` | Reloads and waits. |
+| `waitForUrlToContain(urlPart, timeout?)` | Waits until URL includes the string. |
+| `waitForUrlToMatch(pattern, timeout?)` | Waits until URL matches a RegExp. |
+
+#### Waits
+| Method | Description |
+|---|---|
+| `waitForElementVisible(locator, timeout?)` | Waits for element to be visible. |
+| `waitForElementHidden(locator, timeout?)` | Waits for element to be hidden. |
+| `waitForElementAttached(locator, timeout?)` | Waits for element to be in the DOM. |
+| `waitForElementDetached(locator, timeout?)` | Waits for element to leave the DOM. |
+| `wait(ms)` | Fixed delay (use sparingly). |
+| `waitForSpinnerToDisappear(timeout?)` | Waits for `.blockui` spinner to clear. Call after any action that triggers loading. |
+
+#### Clicks & Keyboard
+| Method | Description |
+|---|---|
+| `clickElement(locator)` | Waits for visibility then clicks. Primary click method. |
+| `doubleClickElement(locator)` | Double-click. |
+| `forceClick(locator)` | Force-clicks (bypasses visibility check). Use only when overlapping elements block normal click. |
+| `pressEscape()` | Closes modals, dropdowns, datepicker. |
+| `pressEnter(locator?)` | Submits forms. Pass locator to scope to element, omit for global. |
+| `pressTab(locator?)` | Moves focus / closes datepicker after fill. |
+| `pressKey(locator, key)` | Presses any key on a specific element. |
+
+#### Inputs
+| Method | Description |
+|---|---|
+| `fillInput(locator, value)` | Waits for visibility then fills. Primary fill method. |
+| `clearAndFill(locator, value)` | Clears then fills (for fields with existing values). |
+| `appendText(locator, value)` | Types character by character via `pressSequentially`. |
+| `selectAllText(locator)` | Ctrl+A on the element. |
+
+#### Date Picker
+| Method | Description |
+|---|---|
+| `fillDate(inputLocator, date)` | **Primary method.** Fills `MM/DD/YYYY` string and presses Tab to close the picker. |
+| `selectDateFromPicker(inputLocator, date)` | **Fallback only.** Navigates the Bootstrap calendar when the input is read-only. |
+
+#### Dropdowns (native `<select>`)
+| Method | Description |
+|---|---|
+| `selectDropdownByLabel(locator, label)` | **Primary method.** Selects by visible text — use this always. |
+| `getSelectedOptionText(locator)` | Returns the currently selected option text. |
+| `selectDropdown(locator, value)` | ⚠️ **Deprecated.** Value-based; brittle with numeric IDs. |
+| `selectDropdownByIndex(locator, index)` | ⚠️ **Deprecated.** Index-based; breaks on reorder. |
+
+#### Checkboxes
+| Method | Description |
+|---|---|
+| `checkCheckbox(locator)` | Checks if unchecked. For non-table checkboxes. |
+| `uncheckCheckbox(locator)` | Unchecks if checked. For non-table checkboxes. |
+| `selectAllRows(tableLocator)` | Clicks the header "select all" checkbox in a kt-datatable. |
+| `selectRowCheckbox(rowLocator)` | Clicks the per-row checkbox. Pass a row from `getRowById()`. |
+| `isRowCheckboxChecked(rowLocator)` | Returns `boolean` — current check state of a row. |
+
+#### Table (kt-datatable)
+The site uses `kt-datatable` for all tables. Row IDs follow `#${tableId}_row_${recordId}`.
+
+| Method | Description |
+|---|---|
+| `getRowById(tableId, recordId)` | Returns row `Locator` by record ID. e.g. `getRowById('myWhamSearchTable', 2525)` |
+| `getCellText(rowLocator, fieldName)` | Reads cell text by `data-field` name. e.g. `getCellText(row, 'Level')` |
+| `getRowCount(tableLocator)` | Counts `.kt-datatable__row` elements. |
+| `waitForTableRows(tableLocator, timeout?)` | Waits for first row to be visible after search. |
+| `searchInTable(inputLocator, searchText)` | Fills search input, presses Enter, waits for spinner. |
+| `clickColumnHeader(tableLocator, columnName)` | Clicks a column header to sort. |
+| `getColumnSortOrder(tableLocator, columnName)` | Returns `'asc'`, `'desc'`, or `'none'`. |
+
+#### Pagination (kt-datatable)
+| Method | Description |
+|---|---|
+| `goToNextPage(tableLocator)` | Clicks next page and waits for spinner. |
+| `goToPreviousPage(tableLocator)` | Clicks previous page and waits for spinner. |
+| `goToPage(tableLocator, pageNumber)` | Navigates to a specific page number. |
+| `getCurrentPage(tableLocator)` | Returns current active page number. |
+| `getTotalPages(tableLocator)` | Returns total number of pages. |
+
+#### Modals
+| Method | Description |
+|---|---|
+| `waitForModalVisible(modalLocator, timeout?)` | Waits for modal to open. |
+| `waitForModalClosed(modalLocator, timeout?)` | Waits for modal to close after submit/cancel. |
+| `getModalTitle(modalLocator)` | Reads `.modal-title` text. |
+| `closePopupIfVisible(closeButton)` | Clicks close only if currently visible. |
+| `validatePopupVisible(locator)` | Waits then asserts visible. |
+
+#### Toast / Alerts
+⚠️ Toast selectors (`.alert, .toast`) are generic placeholders — update once actual DOM is confirmed.
+
+| Method | Description |
+|---|---|
+| `waitForToast(message?, timeout?)` | Waits for toast; filter by message text if provided. |
+| `getToastMessage()` | Reads toast text content. |
+| `waitForToastToDisappear(timeout?)` | Waits for toast to clear before next action. |
+
+#### Form Validation
+| Method | Description |
+|---|---|
+| `getFieldError(fieldLocator)` | Reads Bootstrap `.invalid-feedback` error for a field. |
+| `waitForFieldError(fieldLocator, timeout?)` | Waits for `is-invalid` class to appear after bad submit. |
+| `validateFieldError(fieldLocator, expectedMessage)` | Asserts error message contains expected text. |
+
+#### Saved Criteria (reports bar)
+⚠️ `selectSavedCriteria` uses a generic selector — update with actual `<select>` ID once confirmed.
+
+| Method | Description |
+|---|---|
+| `selectSavedCriteria(optionText)` | Selects a saved criteria entry from the dropdown. |
+| `saveCurrentCriteria(name)` | Clicks Save, fills name modal (`#savedReportName`), confirms via `#saveSubmit`. |
+| `resetCriteria()` | Clicks Reset button. |
+| `deleteSavedCriteria()` | Clicks Delete button. |
+| `clickPrint()` | Clicks Print to open the report submission modal. |
+
+#### Report Queue (My Process)
+| Method | Description |
+|---|---|
+| `submitReportToQueue(description)` | Fills description modal and saves. Call after `clickPrint()`. |
+| `searchMyProcess()` | Clicks Search in My Process and waits for spinner. |
+| `getReportStatus(rowLocator)` | Reads `i.badge` text from a My Process row (`Start`/`Started`/`Success`/`Error`). |
+| `waitForReportComplete(refreshFn, rowLocator, timeout?)` | Polls every 15s via `refreshFn` until `Success` or `Error`. Default timeout 5 min. Throws on error. |
+| `getResultFileLinks(modalLocator)` | Returns all `href` values from the results modal (PDF/TXT links). |
+| `downloadResultFile(linkLocator)` | Clicks a result link and returns a Playwright `Download` object. |
+
+#### New Tab
+| Method | Description |
+|---|---|
+| `waitForNewTab(triggerFn)` | Wraps an action that opens a new tab. Returns the new `Page`. |
+
+#### Validation (use in specs, not page objects)
+| Method | Description |
+|---|---|
+| `validateElementVisible(locator)` | `expect(locator).toBeVisible()` |
+| `validateElementHidden(locator)` | `expect(locator).toBeHidden()` |
+| `validateElementEnabled(locator)` | `expect(locator).toBeEnabled()` |
+| `validateElementDisabled(locator)` | `expect(locator).toBeDisabled()` |
+| `validateText(locator, text)` | `expect(locator).toContainText(text)` |
+| `validateExactText(locator, text)` | `expect(locator).toHaveText(text)` |
+| `validateValue(locator, value)` | `expect(locator).toHaveValue(value)` |
+| `validateUrl(expected)` | `expect(page).toHaveURL(expected)` |
+| `validateTitle(expected)` | `expect(page).toHaveTitle(expected)` |
+| `validateElementCount(locator, count)` | `expect(locator).toHaveCount(count)` |
+
+#### Utilities
+| Method | Description |
+|---|---|
+| `getText(locator)` | Returns `textContent()`. |
+| `getInputValue(locator)` | Returns `inputValue()`. |
+| `isVisible(locator)` | Returns `boolean`. |
+| `isEnabled(locator)` | Returns `boolean`. |
+| `isElementPresent(locator)` | Returns `true` if element exists in DOM (regardless of visibility). |
+| `uploadFile(inputLocator, filePath)` | Sets files on a file input. |
+| `waitForDownload()` | Waits for a download event and returns `Download`. |
+| `takeScreenshot(fileName)` | Saves full-page screenshot to `screenshots/`. |
+| `scrollIntoView(locator)` | Scrolls element into view. |
+| `scrollToBottom()` | Scrolls page to bottom. |
+| `scrollToTop()` | Scrolls page to top. |
 
 ### Test data
 - `testdata/mywham/*.ts` — typed data objects per feature (`whamSearchData`, `whamAddEditData`,

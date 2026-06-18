@@ -1,0 +1,160 @@
+# LandNav Test Automation Skill
+
+You are assisting with Playwright + TypeScript end-to-end test automation for the **LandNav** web application. The project lives in the user's connected folder (`LandNav_Automation`). Read `CLAUDE.md` in that folder for the full reference — this skill summarises the most critical rules and patterns so you follow them correctly from the first action.
+
+---
+
+## Project basics
+
+- **Framework:** Playwright (TypeScript), Page Object Model
+- **Target module:** My WHAM (primary), Login/Auth
+- **Base URL:** `https://dev-qa2-cp.test.landnav.com/` (overridable via `APP_URL` env var)
+- **Run commands:** `npm test` (all), `npm run test:chrome` (chrome only), `npm run test:headed` (visible browser)
+
+---
+
+## Architecture rules — follow these exactly
+
+### File naming
+- Page objects → PascalCase: `MyWhamPage.ts`
+- Spec files → camelCase: `addWham.spec.ts`
+- Test data files → camelCase: `whamAddEditData.ts`
+
+### Imports
+- WHAM specs import `test` from `../../fixtures` (NOT from `@playwright/test`) to get `authenticatedPage`
+- Login spec imports `test` from `@playwright/test` directly
+- Path aliases work: `@pages/*`, `@utils/*`, `@config/*`, `@testdata/*`
+
+### Page Object rules
+- All page objects extend `BasePage` (`pages/BasePage.ts`)
+- Page objects only **DO** and **READ** — never assert (`expect`) inside page objects
+- Assertions belong in specs only
+- `waitForElementVisible` inside a page object method is fine — it is a wait, not an assertion
+- Use `test.step(...)` in specs for reporting — never `console.log`
+- One-arg-per-line style in page object methods (match existing files exactly)
+
+### Locator priority (strict order)
+1. `getByRole`, `getByLabel`, `getByPlaceholder`
+2. `data-testid` (request from frontend team for dynamic elements)
+3. Scoped CSS by stable attribute: `[data-field='To']`
+
+**Banned locators:** positional XPath, `nth-child` chains, auto-generated IDs (e.g. `parsley-id-9`)
+
+### Test data
+- Always typed — add an `interface` for every data set
+- Use `RandomDataUtil` (faker-based) for unique create-data
+- Clean up anything a test creates — tests share one auth state
+
+---
+
+## UI patterns — site-wide
+
+### Table (kt-datatable)
+Every table on the site uses `kt-datatable`. Row element IDs follow: `#${tableId}_row_${recordId}`
+
+```typescript
+// Get a row by record ID
+const row = myWhamPage.table.getRowById('myWhamSearchTable', 2525);
+
+// Read a cell by its data-field name
+const level = await myWhamPage.table.getCellText(row, 'Level');
+
+// Wait for rows after search
+await myWhamPage.table.waitForTableRows(tableLocator);
+```
+
+Cells have `data-field` attributes matching column names: `To`, `Category`, `Level`, `Type`, `Properties`, `Message`, `Creation Date`, `Expiration Date`, `Confidential`.
+
+### Checkboxes
+Two types in tables:
+- **Select all** (header): `selectAllRows(tableLocator)` — aria-label `"select or unselect all rows"`
+- **Row checkbox**: `selectRowCheckbox(rowLocator)` — scoped to `[data-field="checkbox"] input`
+
+### Dropdowns
+All dropdowns are native `<select>`. Option values are **numeric IDs** — always select by label:
+```typescript
+// Correct
+await page.selectDropdownByLabel(levelDropdown, 'HIGH');
+
+// Wrong — numeric ID may change
+await page.selectDropdown(levelDropdown, '3');
+```
+
+### Date picker (Bootstrap)
+Inputs accept direct typed entry in `MM/DD/YYYY` format:
+```typescript
+await page.fillDate(expirationInput, '06/30/2026');
+// fillDate fills the value and presses Tab to close the picker
+```
+
+Only use `selectDateFromPicker` if the field is read-only.
+
+### Spinner
+A `.blockui` overlay appears during any loading operation. Always call after clicks that trigger data loads:
+```typescript
+await page.waitForSpinnerToDisappear();
+```
+
+### Saved Criteria bar (reports)
+Appears on report pages: `<select>` dropdown + Save / Reset / Delete / Print buttons.
+```typescript
+await page.selectSavedCriteria('My Search');
+await page.clickPrint();
+await page.submitReportToQueue('Monthly Assessment Run');
+```
+
+### My Process / Report queue
+Reports are queued and polled manually. Status badge values: `Start`, `Started`, `Success`, `Error`.
+```typescript
+await page.searchMyProcess();
+const row = page.getRowById('myProcessTable', reportId);
+const finalStatus = await page.waitForReportComplete(
+    () => page.searchMyProcess(),
+    row,
+    300_000   // 5 min timeout
+);
+const links = await page.getResultFileLinks(resultsModal);
+```
+
+### New tab
+When a report or link opens in a new tab:
+```typescript
+const reportPage = await page.waitForNewTab(async () => {
+    await page.clickElement(exportButton);
+});
+```
+
+---
+
+## Writing a new spec — checklist
+
+1. Place file under `tests/<module>/featureName.spec.ts`
+2. Import `test` from `../../fixtures` (for authenticated tests)
+3. Import typed test data from `testdata/<module>/`
+4. Instantiate the page object: `new MyWhamPage(authenticatedPage)`
+5. Wrap logical phases in `test.step('description', async () => { ... })`
+6. Assert a real outcome at the end of every test — never rely on "no error thrown"
+7. Clean up created data in an `afterEach` or at the end of the test
+
+### Reference spec
+`tests/mywham/addWham.spec.ts` — the canonical example. Read it before writing any new spec.
+
+---
+
+## Auth / session notes
+
+- Auth state is saved to `.playwright/.auth/user.json` by the `setup` project
+- If session expires mid-run, delete `user.json` and re-run — setup will re-authenticate
+- `auth.setup.spec.ts` uses `LoginPage` PO, confirms login via `heading { name: /Welcome/i }`, then saves storage state
+- Never add `dependencies: ['setup']` to the `login` project — it tests unauthenticated flows
+
+---
+
+## Pending TODOs in BasePage (update selectors when DOM is confirmed)
+
+| Method | Pending |
+|---|---|
+| `waitForToast` / `getToastMessage` / `waitForToastToDisappear` | Update `.alert, .toast` to actual toast selector |
+| `selectSavedCriteria` | Update `select[name*="Criteria"]` to actual `<select>` ID |
+| `submitReportToQueue` | Update description input selector to actual field name/id |
+| `saveCurrentCriteria` / `resetCriteria` / `deleteSavedCriteria` / `clickPrint` | Scope `getByRole('button')` to criteria bar container if button names clash |

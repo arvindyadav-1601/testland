@@ -32,7 +32,7 @@ test.beforeEach(
 // POSITIVE SCENARIO
 // =====================================================
 
-test("valid credentials log the user in", async ({ page }) => {
+test("Valid credentials log the user in successfully", async ({ page }) => {
 
       const loginPage =
           new LoginPage(page);
@@ -57,7 +57,7 @@ test("valid credentials log the user in", async ({ page }) => {
 // NEGATIVE SCENARIOS
 // =====================================================
 
-test("invalid password prevents login", async ({ page }) => {
+test("Invalid password prevents login and Correct Error Message is Displayed", async ({ page }) => {
 
       const loginPage =
           new LoginPage(page);
@@ -76,7 +76,7 @@ test("invalid password prevents login", async ({ page }) => {
   }
 );
 
-test( "empty username prevents login", async ({ page }) => {
+test( "Empty username prevents login and Correct Error Message is Displayed", async ({ page }) => {
 
       const loginPage =
           new LoginPage(page);
@@ -91,7 +91,7 @@ test( "empty username prevents login", async ({ page }) => {
   }
 );
 
-test("empty password prevents login", async ({ page }) => {
+test("Empty password prevents login and Correct Error Message is Displayed", async ({ page }) => {
 
       const loginPage =
           new LoginPage(page);
@@ -106,7 +106,7 @@ test("empty password prevents login", async ({ page }) => {
   }
 );
 
-test("empty username and password prevents login", async ({ page }) => {
+test("Empty username and password prevents login and Correct Error Message is Displayed", async ({ page }) => {
 
       const loginPage =
           new LoginPage(page);
