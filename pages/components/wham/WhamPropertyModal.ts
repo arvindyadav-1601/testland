@@ -8,6 +8,13 @@ import { BasePage } from "../../BasePage";
 export class WhamPropertyModal extends BasePage {
 
     // =====================================================
+    // Model Container
+    // =====================================================
+
+    readonly modalContainer: Locator;
+
+
+    // =====================================================
     // PROPERTY TYPE
     // =====================================================
 

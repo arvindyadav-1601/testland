@@ -236,7 +236,7 @@ export class WhamSearchSection extends BasePage {
     // SEARCH FIELD METHODS
     // =====================================================
 
-   ? async enterMessage(
+   async enterMessage(
         message: string
     ): Promise<void> {
 

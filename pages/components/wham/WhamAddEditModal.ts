@@ -332,11 +332,11 @@ export class WhamAddEditModal extends BasePage {
         );
 
         await this.selectMessageLevel(
-            data.messageLevel
+            data.level
         );
 
         await this.selectMessageType(
-            data.messageType
+            data.type
         );
 
         await this.enterMessage(

@@ -1,7 +1,4 @@
-import {
-    Page,
-    Locator
-} from "@playwright/test";
+import {Page, Locator, expect} from "@playwright/test";
 
 import { BasePage } from "./BasePage";
 
@@ -18,6 +15,13 @@ export class LoginPage extends BasePage {
     readonly loginButton: Locator;
 
     readonly loginErrorMessage: Locator;
+
+    readonly welcomeMessage: Locator; 
+
+    readonly pageTitle: Locator; 
+
+    readonly loginSubtitle: Locator;
+
 
     // =====================================================
     // CONSTRUCTOR
@@ -62,11 +66,62 @@ export class LoginPage extends BasePage {
         // =================================================
 
         this.loginErrorMessage =
-            page.locator(
-                "text=Invalid username or password"
-            );
+        page.getByText(
+            "Username or password is incorrect."
+        );
+
+        this.welcomeMessage = 
+        page.getByRole(
+            "heading", { name: "Welcome to Catalis" }
+        );
+
+        this.pageTitle = page.getByRole(
+            "heading", { name: "Sign In To Account" }
+        );
+
+        this.loginSubtitle = page.getByText(
+            "Login to begin"
+        );
     }
 
+    
+    async verifyLoginPageLoaded(): Promise<void> {
+
+        await expect(
+            this.welcomeMessage
+        ).toBeVisible();
+    
+        await expect(
+            this.pageTitle
+        ).toBeVisible();
+
+        await expect(
+            this.loginSubtitle
+        ).toBeVisible();
+    
+        await expect(
+            this.usernameInput
+        ).toBeVisible();
+    
+        await expect(
+            this.passwordInput
+        ).toBeVisible();
+    
+        await expect(
+            this.loginButton
+        ).toBeVisible();
+    }
+
+    async verifyLoginError(): Promise<void> {
+
+        await this.validateElementVisible(
+            this.loginErrorMessage
+        );
+    }
+
+}
+
+/** 
     // =====================================================
     // PAGE NAVIGATION
     // =====================================================
@@ -109,32 +164,7 @@ export class LoginPage extends BasePage {
         );
     }
 
-    // =====================================================
-    // CLEAR METHODS
-    // =====================================================
-
-    async clearUsername(): Promise<void> {
-
-        await this.clearAndFill(
-            this.usernameInput,
-            ""
-        );
-    }
-
-    async clearPassword(): Promise<void> {
-
-        await this.clearAndFill(
-            this.passwordInput,
-            ""
-        );
-    }
-
-    async clearLoginFields(): Promise<void> {
-
-        await this.clearUsername();
-
-        await this.clearPassword();
-    }
+    
 
     // =====================================================
     // COMPLETE LOGIN FLOW
@@ -265,3 +295,5 @@ export class LoginPage extends BasePage {
         );
     }
 }
+
+**/

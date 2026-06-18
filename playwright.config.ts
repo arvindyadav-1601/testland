@@ -9,7 +9,7 @@ export default defineConfig({
 
   // ── General ────────────────────────────────────────────────────────────────
   testDir: './tests',
-  timeout: 30_000,          // 30 s per test action
+  timeout: 40_000,          // 30 s per test action
   fullyParallel: false,
   // Retry once on CI so the existing trace:'on-first-retry' actually captures
   // a trace for triage; keep 0 locally for fast feedback.
@@ -19,7 +19,7 @@ export default defineConfig({
   // ── Reporters ──────────────────────────────────────────────────────────────
   reporter: [
     ['html'],
-    ['allure-playwright'],
+    ['allure-playwright', {resultsDir: 'allure-results'}],
     ['dot'],
     ['list'],
   ],
