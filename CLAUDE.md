@@ -30,8 +30,9 @@ transpilation. `tsconfig.json` enables `strict`, `noUnusedLocals`, and `noUnused
 ## Environment setup
 
 Credentials and target URL come from a `.env` file (see `.env.example`):
-`APP_URL`, `APP_USERNAME`, `APP_PASSWORD`. Loaded via `config/env.ts` (`import { env } from '@config/env'`).
-Tests will silently use empty strings if `.env` is missing.
+Create a `.env` file from `.env.example` and set `APP_URL`, `APP_USERNAME`, and `APP_PASSWORD`.
+These are loaded via `config/env.ts` (`import { env } from '@config/env'`).
+If the `.env` file is missing, tests will use empty strings (which may cause authentication failures).
 
 ## Architecture
 
@@ -104,10 +105,10 @@ instead — both work.
 - Page objects use a heavily commented, one-arg-per-line style; match it when editing existing files.
 
 ### Locator strategy (for new modules)
-Priority order: 1) role/label/placeholder (`getByRole`, `getByLabel`); 2) stable `data-testid`
-(request these from the frontend team for dynamic/table/modal elements); 3) scoped CSS by stable
-attribute (`[data-field='To']`). **Banned:** positional XPath, `nth-child` chains, and
-auto-generated ids (e.g. Parsley `parsley-id-9`) — these are the main source of breakage.
+Priority order: 1) role/label/placeholder (`getByRole`, `getByLabel`, `getByPlaceholder`);
+2) stable `data-testid` (request these from the frontend team for dynamic/table/modal elements);
+3) scoped CSS by stable attribute (`[data-field='To']`). **Banned:** positional XPath, `nth-child` chains,
+and auto-generated ids (e.g. Parsley `parsley-id-9`) — these are the main source of breakage.
 
 ## Notes / gotchas
 
@@ -117,3 +118,5 @@ auto-generated ids (e.g. Parsley `parsley-id-9`) — these are the main source o
   gitignored; don't commit them.
 - `auth.setup` confirms login by waiting for a `Welcome <username>` heading; `LoginPage.verifyLoginSuccess`
   checks the URL matches `/dashboard|home/i` — keep these in sync if the app's post-login UI changes.
+- The project uses GitHub Actions for CI (see `.github/workflows/playwright.yml`). Tests run on push
+  and pull request to `main` and `master` branches.
