@@ -10,11 +10,11 @@ export default defineConfig({
   // ── General ────────────────────────────────────────────────────────────────
   testDir: './tests',
   timeout: 40_000,          // 30 s per test action
-  fullyParallel: false,
+  fullyParallel: true,
   // Retry once on CI so the existing trace:'on-first-retry' actually captures
   // a trace for triage; keep 0 locally for fast feedback.
-  retries: process.env.CI ? 1 : 0,
-  workers: 4,
+  retries: process.env.CI ? 6 : 1,
+  workers: 6,
 
   // ── Reporters ──────────────────────────────────────────────────────────────
   reporter: [
@@ -48,7 +48,7 @@ export default defineConfig({
       name: 'login',
       testMatch: /login\.spec\.ts/,
       use: {
-        storageState: undefined, // ✅ critical
+        storageState: undefined, // ✅ critical — no auth for login page tests
       },
     },
 

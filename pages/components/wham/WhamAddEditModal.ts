@@ -18,15 +18,21 @@ export class WhamAddEditModal extends BasePage {
 
     readonly saveButton: Locator;
 
-    readonly updateButton: Locator;
-
     readonly cancelButton: Locator;
 
     // =====================================================
-    // MODAL
+    // PAGE HEADING
     // =====================================================
 
     readonly modalTitle: Locator;
+
+    // =====================================================
+    // BREADCRUMB
+    // =====================================================
+
+    readonly breadcrumb: Locator;
+
+    readonly breadcrumbMyWhamLink: Locator;
 
     // =====================================================
     // DROPDOWNS
@@ -38,11 +44,7 @@ export class WhamAddEditModal extends BasePage {
 
     readonly messageTypeDropdown: Locator;
 
-    readonly categoryDropdown: Locator;
-
-    readonly typeDropdown: Locator;
-
-    readonly levelDropdown: Locator;
+    readonly reminderDropdown: Locator;
 
     // =====================================================
     // INPUTS
@@ -52,17 +54,43 @@ export class WhamAddEditModal extends BasePage {
 
     readonly expirationDateInput: Locator;
 
-    readonly reminderDropdown: Locator;
-
     readonly confidentialCheckbox: Locator;
 
     // =====================================================
-    // VALIDATIONS
+    // REQUIRED INDICATORS
     // =====================================================
 
-    readonly addEditModalContainer: Locator;
+    readonly levelRequiredIndicator: Locator;
 
-    readonly reminderInput: Locator;
+    readonly typeRequiredIndicator: Locator;
+
+    // =====================================================
+    // PROPERTIES SECTION
+    // =====================================================
+
+    readonly propertiesNoRecordsMessage: Locator;
+
+    readonly propertiesTablePropertyHeader: Locator;
+
+    readonly propertiesTaxYearHeader: Locator;
+
+    readonly propertiesAddButton: Locator;
+
+    readonly propertiesDeleteButton: Locator;
+
+    readonly propertiesTableRows: Locator;
+
+    readonly firstPropertyRowCheckbox: Locator;
+
+    // =====================================================
+    // ERROR MODAL
+    // =====================================================
+
+    readonly errorModalContainer: Locator;
+
+    readonly errorModalMessage: Locator;
+
+    readonly errorModalCloseButton: Locator;
 
     // =====================================================
     // CONSTRUCTOR
@@ -77,37 +105,45 @@ export class WhamAddEditModal extends BasePage {
         // =================================================
 
         this.addButton =
-            page.locator(
-                "button[title='Add']"
+            page.getByTitle(
+                "Add"
             );
 
         this.saveButton =
-            page.locator(
-                ".btn.btn-primary.on-new"
-            );
-
-        this.updateButton =
-            page.locator(
-                "#btnSaveWHAM"
+            page.getByRole(
+                "button",
+                { name: "Save" }
             );
 
         this.cancelButton =
-            page.locator(
-                "button[class='btn btn-secondary']"
+            page.getByRole(
+                "button",
+                { name: "Cancel" }
             );
 
         // =================================================
-        // MODAL
+        // PAGE HEADING
         // =================================================
 
         this.modalTitle =
-            page.locator(
-                ".modal-title"
+            page.getByRole(
+                "heading",
+                { name: "Add Message" }
             );
 
-        this.addEditModalContainer =
+        // =================================================
+        // BREADCRUMB
+        // =================================================
+
+        this.breadcrumb =
             page.locator(
-                ".modal-content"
+                "i.flaticon2-shelter"
+            );
+
+        this.breadcrumbMyWhamLink =
+            page.getByRole(
+                "link",
+                { name: "Add Message" }
             );
 
         // =================================================
@@ -129,26 +165,9 @@ export class WhamAddEditModal extends BasePage {
                 "select[name='MessageTypeId']"
             );
 
-        this.categoryDropdown =
+        this.reminderDropdown =
             page.locator(
-                "div[class='col-3'] select[name='MessageLevelId']"
-            );
-
-
-        this.typeDropdown =
-
-            page.locator(
-
-                "select[name='MessageTypeId']"
-
-            );
-
-        this.levelDropdown =
-
-            page.locator(
-
-                "select[name='MessageLevelId']"
-
+                "#reminderSelect"
             );
 
         // =================================================
@@ -157,30 +176,100 @@ export class WhamAddEditModal extends BasePage {
 
         this.messageTextbox =
             page.locator(
-                "textarea[name='Message']"
+                "textarea"
             );
 
         this.expirationDateInput =
-            page.locator(
-                "#expirationInput"
-            );
-
-        this.reminderDropdown =
-            page.locator(
-                "#reminderSelect"
+            page.getByPlaceholder(
+                "Select date"
             );
 
         this.confidentialCheckbox =
-            page.locator(
-                ".kt-checkbox.kt-checkbox--brand"
+            page.getByText(
+                "Confidential"
             );
 
-            this.reminderInput =
+        // =================================================
+        // REQUIRED INDICATORS
+        // =================================================
 
+        this.levelRequiredIndicator =
             page.locator(
+                "li"
+            ).filter(
+                { hasText: "This value is required." }
+            ).first();
 
-                "#reminderInput"
+        this.typeRequiredIndicator =
+            page.locator(
+                "li"
+            ).filter(
+                { hasText: "This value is required." }
+            ).last();
 
+        // =================================================
+        // PROPERTIES SECTION
+        // =================================================
+
+        this.propertiesNoRecordsMessage =
+            page.getByText(
+                "No records found",
+                { exact: true }
+            );
+
+        this.propertiesTablePropertyHeader =
+            page.getByText(
+                "Property #",
+                { exact: true }
+            );
+
+        this.propertiesTaxYearHeader =
+            page.getByText(
+                "Tax Year",
+                { exact: true }
+            );
+
+        this.propertiesAddButton =
+            page.getByTitle(
+                "Add",
+                { exact: true }
+            );
+
+        this.propertiesDeleteButton =
+            page.locator(
+                "#btnDeleteMany"
+            );
+
+        this.propertiesTableRows =
+            page.locator(
+                "tbody.kt-datatable__body tr"
+            );
+
+        this.firstPropertyRowCheckbox =
+            page.locator(
+                "#propertyDisplay_row_1352430"
+            ).locator(
+                "td"
+            ).nth(1);
+
+        // =================================================
+        // ERROR MODAL
+        // =================================================
+
+        this.errorModalContainer =
+            page.locator(
+                "//div[@id='errormessage']//div[contains(@class,'modal-content')]"
+            );
+
+        this.errorModalMessage =
+            page.getByText(
+                "The Message must be assigned to a user and/or properties.",
+                { exact: true }
+            );
+
+        this.errorModalCloseButton =
+            page.locator(
+                "button:has-text('Close')"
             );
     }
 
@@ -202,13 +291,6 @@ export class WhamAddEditModal extends BasePage {
         );
     }
 
-    async clickUpdate(): Promise<void> {
-
-        await this.clickElement(
-            this.updateButton
-        );
-    }
-
     async clickCancel(): Promise<void> {
 
         await this.clickElement(
@@ -224,27 +306,27 @@ export class WhamAddEditModal extends BasePage {
         value: string
     ): Promise<void> {
 
-        await this.selectDropdown(
+        await this.selectDropdownByLabel(
             this.assignedUserDropdown,
             value
         );
     }
 
-    async selectMessageLevel(
+    async selectLevel(
         value: string
     ): Promise<void> {
 
-        await this.selectDropdown(
+        await this.selectDropdownByLabel(
             this.messageLevelDropdown,
             value
         );
     }
 
-    async selectMessageType(
+    async selectType(
         value: string
     ): Promise<void> {
 
-        await this.selectDropdown(
+        await this.selectDropdownByLabel(
             this.messageTypeDropdown,
             value
         );
@@ -264,7 +346,7 @@ export class WhamAddEditModal extends BasePage {
         value: string
     ): Promise<void> {
 
-        await this.fillInput(
+        await this.fillDate(
             this.expirationDateInput,
             value
         );
@@ -274,7 +356,7 @@ export class WhamAddEditModal extends BasePage {
         value: string
     ): Promise<void> {
 
-        await this.selectDropdown(
+        await this.selectDropdownByLabel(
             this.reminderDropdown,
             value
         );
@@ -287,33 +369,59 @@ export class WhamAddEditModal extends BasePage {
         );
     }
 
-    async selectCategory(
-        value: string
-    ): Promise<void> {
-    
-        await this.selectDropdown(
-            this.categoryDropdown,
-            value
+    // Purpose:
+    // Unchecks the confidential checkbox if currently checked.
+    // Uses the same toggle click as enableConfidential(); named
+    // separately for spec readability.
+    //
+    // Usage:
+    // await myWhamPage.addEditModal.disableConfidential();
+
+    async disableConfidential(): Promise<void> {
+
+        await this.clickElement(
+            this.confidentialCheckbox
         );
     }
-    
-    async selectType(
-        value: string
-    ): Promise<void> {
-    
-        await this.selectDropdown(
-            this.typeDropdown,
-            value
+
+    // =====================================================
+    // PROPERTIES SECTION METHODS
+    // =====================================================
+
+    async clickPropertiesAddButton(): Promise<void> {
+
+        await this.clickElement(
+            this.propertiesAddButton
         );
     }
-    
-    async selectLevel(
-        value: string
-    ): Promise<void> {
-    
-        await this.selectDropdown(
-            this.levelDropdown,
-            value
+
+    async clickPropertiesDeleteButton(): Promise<void> {
+
+        await this.clickElement(
+            this.propertiesDeleteButton
+        );
+    }
+
+    async selectFirstPropertyRow(): Promise<void> {
+
+        await this.clickElement(
+            this.firstPropertyRowCheckbox
+        );
+    }
+
+    async getPropertiesRowCount(): Promise<number> {
+
+        return await this.propertiesTableRows.count();
+    }
+
+    // =====================================================
+    // ERROR MODAL METHODS
+    // =====================================================
+
+    async clickErrorModalClose(): Promise<void> {
+
+        await this.clickElement(
+            this.errorModalCloseButton
         );
     }
 
@@ -325,17 +433,15 @@ export class WhamAddEditModal extends BasePage {
         data: WhamAddEditDataShape
     ): Promise<void> {
 
-        await this.clickAddButton();
-
         await this.selectAssignedUser(
             data.assignedUser
         );
 
-        await this.selectMessageLevel(
+        await this.selectLevel(
             data.level
         );
 
-        await this.selectMessageType(
+        await this.selectType(
             data.type
         );
 
@@ -351,9 +457,7 @@ export class WhamAddEditModal extends BasePage {
             data.reminder
         );
 
-        if (
-            data.confidential
-        ) {
+        if (data.confidential) {
 
             await this.enableConfidential();
         }
@@ -370,26 +474,4 @@ export class WhamAddEditModal extends BasePage {
             updatedMessage
         );
     }
-
-    
-
-    // =====================================================
-    // ENTER REMINDER
-    // =====================================================
-
-async enterReminder(
-
-    reminder: string
-
-): Promise<void> {
-
-    await this.fillInput(
-
-        this.reminderInput,
-
-        reminder
-
-    );
-}
-
 }

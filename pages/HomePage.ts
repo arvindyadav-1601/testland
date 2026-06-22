@@ -21,7 +21,7 @@ export class HomePage extends BasePage {
     // NAVIGATION LOCATORS
     // =====================================================
 
-    readonly mainNav: Locator;
+    readonly sidebarNavigation: Locator;
 
     readonly homeLink: Locator;
 
@@ -43,7 +43,7 @@ export class HomePage extends BasePage {
 
     readonly aboutCatalisLink: Locator;
 
-    readonly myprofileLink: Locator;
+    readonly myProfileLink: Locator;
 
     readonly logoutLink: Locator;
 
@@ -55,82 +55,79 @@ export class HomePage extends BasePage {
 
         super(page);
 
-        this.mainNav =
-            page.getByRole(
-                "navigation",
-                { name: "Main Navigation" }
+        this.sidebarNavigation =
+            page.getByLabel(
+                'Main Navigation' 
             );
 
         this.homeLink =
-            this.mainNav.getByRole(
-                'navigation', 
-                { name: 'Main Navigation' })
+            this.sidebarNavigation.getByLabel(
+                'Main Navigation')
                 .getByText
                 ('Home');
 
         this.myWhamLink =
-            this.mainNav.getByRole(
-                'navigation', 
-                { name: 'Main Navigation' })
+            this.sidebarNavigation.getByLabel(
+                'Main Navigation')
                 .getByText
                 ('My Wham');
 
         this.myProcessesLink =
-            this.mainNav.getByRole
-            ('navigation',
-                 { name: 'Main Navigation' }
-                ).getByText
+            this.sidebarNavigation.getByLabel(
+                'Main Navigation')
+                .getByText
                 ('My Processes');
 
         this.cashReceiptingLink =
-            this.mainNav.getByRole(
+            this.sidebarNavigation.getByRole(
                 "link",
                 { name: "Cash Receipting", exact: true }
             );
 
         this.billMaintenanceLink =
-            this.mainNav.getByRole(
+            this.sidebarNavigation.getByRole(
                 "link",
                 { name: "Bill Maintenance", exact: true }
             );
 
         this.processesLink =
-            this.mainNav.getByRole(
+            this.sidebarNavigation.getByRole(
                 "link",
-                { name: "Processes", exact: true }
+                { name: "All Processes", exact: true }
             );
 
         this.reportsLink =
-            this.mainNav.getByRole(
+            this.sidebarNavigation.getByRole(
                 "link",
-                { name: "Reports", exact: true }
+                { name: "All Reports", exact: true }
             );
 
         this.settingsLink =
-            this.mainNav.getByRole(
+            this.sidebarNavigation.getByRole(
                 "link",
-                { name: "Settings", exact: true }
+                { name: "All Settings", exact: true }
             );
 
         this.catalisHelpLink =
-            this.mainNav.getByRole(
+            this.sidebarNavigation.getByRole(
                 "link",
                 { name: "Catalis Help", exact: true }
             );
 
         this.aboutCatalisLink =
-            this.mainNav.getByRole(
+            this.sidebarNavigation.getByRole(
                 "link",
                 { name: "About Catalis", exact: true }
             );
 
-        this.myprofileLink =
-            this.mainNav.getByTitle(
-                "Profile"
-            );  
+        this.myProfileLink =
+            this.page.getByRole(
+            "link",
+            { name: 'My Profile' }
+        ); 
             
         this.logoutLink =
-            this.mainNav.getByRole(
+            this.page.getByRole(
                 "link",
                 { name: "Logout" }
             );    
@@ -218,7 +215,7 @@ export class HomePage extends BasePage {
     async openMyProfile(): Promise<void> {
 
         await this.clickElement(
-            this.myprofileLink
+            this.myProfileLink
         );
     }
 

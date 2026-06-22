@@ -8,19 +8,28 @@ import { BasePage } from "../../BasePage";
 export class WhamPropertyModal extends BasePage {
 
     // =====================================================
-    // Model Container
+    // MODAL CONTAINER
     // =====================================================
 
     readonly modalContainer: Locator;
 
+    readonly propertyModalContainer: Locator;
+
+    readonly modalOverlay: Locator;
+
+    // =====================================================
+    // MODAL HEADER
+    // =====================================================
+
+    readonly modalTitle: Locator;
+
+    readonly closePropertyModalButton: Locator;
 
     // =====================================================
     // PROPERTY TYPE
     // =====================================================
 
-    readonly realEstateRadioButton: Locator;
-
-    readonly personalPropertyRadioButton: Locator;
+    readonly propertyTypeDropdown: Locator;
 
     // =====================================================
     // SEARCH
@@ -30,49 +39,53 @@ export class WhamPropertyModal extends BasePage {
 
     readonly searchButton: Locator;
 
-    readonly saveButton: Locator;
-
-    readonly cancelButton: Locator;
+    // =====================================================
+    // RESULTS TABLE
+    // =====================================================
 
     readonly propertySearchResults: Locator;
 
+    readonly firstPropertyRowData: Locator;
+
     // =====================================================
-    // TABLE
+    // RESULTS TABLE — COLUMN HEADERS
     // =====================================================
 
-    readonly propertySearchTable: Locator;
+    readonly resultsPropertyHeader: Locator;
+
+    readonly resultsTaxYearHeader: Locator;
+
+    readonly resultsCreationDateHeader: Locator;
+
+    readonly resultsCurrentHeader: Locator;
+
+    readonly resultsDescriptionHeader: Locator;
+
+    // =====================================================
+    // RESULTS TABLE — CHECKBOXES
+    // =====================================================
 
     readonly selectAllCheckbox: Locator;
 
     readonly firstPropertyCheckbox: Locator;
 
+    readonly secondPropertyCheckbox: Locator;
+
+    // =====================================================
+    // NO RECORDS
+    // =====================================================
+
     readonly noRecordsFoundMessage: Locator;
 
     // =====================================================
-    // MODAL
+    // BUTTONS
     // =====================================================
 
     readonly openPropertySearchButton: Locator;
 
-    readonly closePropertyModalButton: Locator;
+    readonly saveButton: Locator;
 
-    readonly propertyModalContainer: Locator;
-
-    // =====================================================
-
-    // SECOND PROPERTY CHECKBOX
-
-    // =====================================================
-
-    readonly secondPropertyCheckbox: Locator;
-
-    // =====================================================
-
-    // RESET BUTTON
-
-    // =====================================================
-
-    readonly resetButton: Locator;
+    readonly cancelButton: Locator;
 
     // =====================================================
     // CONSTRUCTOR
@@ -83,17 +96,45 @@ export class WhamPropertyModal extends BasePage {
         super(page);
 
         // =================================================
-        // PROPERTY TYPES
+        // MODAL CONTAINER
         // =================================================
 
-        this.realEstateRadioButton =
+        this.modalContainer =
             page.locator(
-                ".kt-radio.kt-radio--brand.mr-3"
+                "#modalAddEdit .modal-body"
             );
 
-        this.personalPropertyRadioButton =
+        this.propertyModalContainer =
             page.locator(
-                "label[class='kt-radio kt-radio--brand']"
+                "#modalAddEdit .modal-body"
+            );
+
+        this.modalOverlay =
+            page.locator(
+                ".modal-backdrop.show, .modal-backdrop"
+            );
+
+        // =================================================
+        // MODAL HEADER
+        // =================================================
+
+        this.modalTitle =
+            page.locator(
+                "#modalAddEdit .modal-title"
+            );
+
+        this.closePropertyModalButton =
+            page.locator(
+                "#modalAddEdit button.close"
+            );
+
+        // =================================================
+        // PROPERTY TYPE
+        // =================================================
+
+        this.propertyTypeDropdown =
+            page.getByLabel(
+                'Property Number Type'
             );
 
         // =================================================
@@ -101,193 +142,129 @@ export class WhamPropertyModal extends BasePage {
         // =================================================
 
         this.searchInput =
-            page.locator(
-                "#searchString"
-            );
+        page.getByRole(
+            'dialog', { name: 'Select Properties' }
+            ).getByRole('textbox'            
+        );
 
         this.searchButton =
-            page.locator(
-                "#btnPropertySearch"
-            );
+        page.getByRole(
+            'button', { name: 'Search' }
+        );
 
-        this.saveButton =
-            page.locator(
-                "#btnSaveProperties"
-            );
 
-        this.cancelButton =
-            page.getByRole(
-                "button",
-                { name: /cancel/i }
-            );
+        // =================================================
+        // RESULTS TABLE
+        // =================================================
 
         this.propertySearchResults =
             page.locator(
-                "#searchResults tbody tr"
+                "table[id$='propertySearchTable']"
+        );
+
+        this.firstPropertyRowData =
+        page.locator(
+            "tr[id^='propertySearchTable_row_']"
+            ).nth(0               
             );
 
         // =================================================
-        // TABLE
+        // RESULTS TABLE — COLUMN HEADERS
         // =================================================
 
-        this.propertySearchTable =
-            page.locator(
-                "table[id='propertySearchTable']"
+        this.resultsPropertyHeader =
+        page.getByRole(
+            'dialog', { name: 'Select Properties' }
+        ).getByText(
+                'Property #'
             );
+
+        this.resultsTaxYearHeader =
+        page.getByRole(
+            'dialog', { name: 'Select Properties' }
+        ).getByText(
+            'Tax Year'
+        );
+
+        this.resultsCreationDateHeader =
+        page.getByRole(
+            'dialog', { name: 'Select Properties' }
+        ).getByText(
+            'Creation Date'
+        );
+
+        this.resultsCurrentHeader =
+        page.getByRole(
+            'dialog', { name: 'Select Properties' }
+        ).getByText(
+            'Current'
+        );
+
+        this.resultsDescriptionHeader =
+        page.getByRole(
+            'dialog', { name: 'Select Properties' }
+        ).getByText(
+            'Description'
+        );
+
+        // =================================================
+        // RESULTS TABLE — CHECKBOXES
+        // =================================================
 
         this.selectAllCheckbox =
-            page.locator(
-                "table[id='propertySearchTable'] thead span span"
-            );
+        page.locator(
+            "table[id='propertySearchTable'] thead[class='kt-datatable__head'] span span"
+        );
 
-        // First result row's custom checkbox. Previously hardcoded a specific
-        // row id (propertySearchTable_row_1352428) which only existed in one
-        // data environment; scope to the first row of the property table instead.
+        // Scoped to #propertySearchTable so these never resolve
+        // against another table on the page.
         this.firstPropertyCheckbox =
-            page.locator(
-                "table[id='propertySearchTable'] tbody tr"
-            ).first().locator("span span");
-
-        this.noRecordsFoundMessage =
-            page.locator(
-                "span[class='kt-datatable--error']"
-            );
-
-        // =================================================
-        // MODAL
-        // =================================================
-
-        this.modalContainer =
-            page.locator(
-                "div[role='document'] div[class='modal-body']"
-            );
-
-        this.openPropertySearchButton =
-            page.getByRole(
-                "button",
-                { name: /property search/i }
-            );
-
-        this.closePropertyModalButton =
-            page.locator(
-                "button.close"
-            );
-
-        this.propertyModalContainer =
-            page.locator(
-                "div[role='document'] div[class='modal-body']"
-            );
-
-        // =====================================================
-        // SECOND PROPERTY CHECKBOX
-        // =====================================================
+        page.locator(
+            "tr[id='propertySearchTable_row_1352430'] span span"
+        );
 
         this.secondPropertyCheckbox =
-            page.locator(
-                "tbody tr:nth-child(2) input[type='checkbox']"
+        page.locator(
+            "//tr[@id='propertySearchTable_row_1305929']//span//span"
             );
 
-        // =====================================================
-        // RESET BUTTON
-        // =====================================================
+        // =================================================
+        // NO RECORDS
+        // =================================================
 
-        this.resetButton =
-            page.getByRole(
-                "button",
-                { name: /reset/i }
-            );
-    }
+        this.noRecordsFoundMessage =
+        page.getByRole(
+            'dialog', { name: 'Select Properties' }
+        ).getByText(
+            'No records found');
 
-    // =====================================================
-    // PROPERTY TYPE METHODS
-    // =====================================================
+        // =================================================
+        // BUTTONS
+        // =================================================
 
-    async selectRealEstate(): Promise<void> {
-
-        await this.clickRadioButton(
-            this.realEstateRadioButton
-        );
-    }
-
-    async selectPersonalProperty(): Promise<void> {
-
-        await this.clickRadioButton(
-            this.personalPropertyRadioButton
-        );
-    }
-
-    // =====================================================
-    // SEARCH METHODS
-    // =====================================================
-
-    async searchProperty(
-        searchValue: string
-    ): Promise<void> {
-
-        await this.fillInput(
-            this.searchInput,
-            searchValue
+        this.openPropertySearchButton =
+        page.getByRole(
+            'button', { name: 'Search' }
         );
 
-        await this.clickElement(
-            this.searchButton
+        this.saveButton =
+        page.getByRole(
+            'dialog', { name: 'Select Properties' }
+        ).getByRole(
+            'button', { name: 'Save' }
         );
-    }
 
-    async searchRealEstateProperty(
-        value: string
-    ): Promise<void> {
-
-        await this.selectRealEstate();
-
-        await this.searchProperty(
-            value
-        );
-    }
-
-    async searchPersonalProperty(
-        value: string
-    ): Promise<void> {
-
-        await this.selectPersonalProperty();
-
-        await this.searchProperty(
-            value
+        this.cancelButton =
+        page.getByRole(
+            'dialog', { name: 'Select Properties' }
+        ).getByRole(
+            'button', { name: 'Cancel' }
         );
     }
 
     // =====================================================
-    // PROPERTY SELECTION
+    // MODAL METHODS
     // =====================================================
-
-    async selectAllProperties(): Promise<void> {
-
-        await this.clickElement(
-            this.selectAllCheckbox
-        );
-    }
-
-    async selectFirstProperty(): Promise<void> {
-
-        await this.clickElement(
-            this.firstPropertyCheckbox
-        );
-    }
-
-    async saveSelectedProperties(): Promise<void> {
-
-        await this.clickElement(
-            this.saveButton
-        );
-    }
-
-    async cancelPropertySelection(): Promise<void> {
-
-        await this.clickElement(
-            this.cancelButton
-        );
-
-    }
 
     async openPropertySearch(): Promise<void> {
 
@@ -309,52 +286,94 @@ export class WhamPropertyModal extends BasePage {
     }
 
     // =====================================================
+    // PROPERTY TYPE METHODS
+    // =====================================================
 
-    // SELECT SECOND PROPERTY
+    async selectPropertyType(
+        label: string
+    ): Promise<void> {
+
+        await this.selectDropdownByLabel(
+            this.propertyTypeDropdown,
+            label
+        );
+    }
 
     // =====================================================
+    // SEARCH METHODS
+    // =====================================================
+
+    async searchProperty(
+        searchValue: string
+    ): Promise<void> {
+
+        await this.fillInput(
+            this.searchInput,
+            searchValue
+        );
+
+        await this.clickElement(
+            this.searchButton
+        );
+    }
+
+
+    // =====================================================
+    // SELECTION METHODS
+    // =====================================================
+
+    async selectAllProperties(): Promise<void> {
+
+        await this.clickElement(
+            this.selectAllCheckbox
+        );
+    }
+
+    async selectFirstProperty(): Promise<void> {
+
+        await this.clickElement(
+            this.firstPropertyCheckbox
+        );
+    }
 
     async selectSecondProperty(): Promise<void> {
 
         await this.clickElement(
-
             this.secondPropertyCheckbox
-
         );
-
     }
 
     // =====================================================
-
-    // RESET PROPERTY SEARCH
-
+    // SAVE / CANCEL METHODS
     // =====================================================
 
-    async resetPropertySearch(): Promise<void> {
+    async saveSelectedProperties(): Promise<void> {
 
         await this.clickElement(
-
-            this.resetButton
-
+            this.saveButton
         );
+    }
 
+    async cancelPropertySelection(): Promise<void> {
+
+        await this.clickElement(
+            this.cancelButton
+        );
     }
 
     // =====================================================
-
-    // SCROLL PROPERTY RESULTS
-
+    // TABLE UTILITIES
     // =====================================================
+
+    async getResultsRowCount(): Promise<number> {
+
+        return await this.propertySearchResults.count();
+    }
 
     async scrollPropertyResults(): Promise<void> {
 
         await this.page.locator(
-
-            "tbody tr:last-child"
-
+            "#propertySearchTable tbody tr:last-child"
         ).scrollIntoViewIfNeeded();
-
     }
 }
-
-

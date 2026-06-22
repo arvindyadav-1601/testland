@@ -1,5 +1,6 @@
 import {Page, Locator, expect} from "@playwright/test";
 
+
 import { BasePage } from "./BasePage";
 
 export class LoginPage extends BasePage {
@@ -16,11 +17,17 @@ export class LoginPage extends BasePage {
 
     readonly loginErrorMessage: Locator;
 
-    readonly welcomeMessage: Locator; 
+    readonly welcomeMessage: Locator;
 
-    readonly pageTitle: Locator; 
+    readonly pageTitle: Locator;
 
     readonly loginSubtitle: Locator;
+
+    readonly requiredFieldErrorForUsername: Locator;
+
+    readonly requiredFieldErrorForPassword: Locator;
+
+    readonly loggedInWelcome: Locator;
 
 
     // =====================================================
@@ -83,9 +90,37 @@ export class LoginPage extends BasePage {
             "heading", { name: "Sign In To Account" }
         );
 
-        this.loginSubtitle = page.getByText(
-            "Login to begin"
-        );
+        this.loginSubtitle =
+            page.getByText(
+                "Login to begin"
+            );
+
+        // =================================================
+        // REQUIRED FIELD ERROR
+        // =================================================
+
+        this.requiredFieldErrorForUsername =
+            page.locator('li')
+                .filter({ 
+                    hasText: 'This value is required.' 
+                }).first();
+
+        this.requiredFieldErrorForPassword =
+            page.locator('li')
+                .filter({
+                     hasText: 'This value is required.'
+                 }).last();
+            
+
+        // =================================================
+        // LOGGED IN WELCOME MESSAGE
+        // =================================================
+
+        this.loggedInWelcome =
+            page.getByText(
+                'Welcome GCS',
+                { exact: false }
+            );
     }
 
 //Methods
@@ -123,6 +158,59 @@ export class LoginPage extends BasePage {
             this.loginErrorMessage
         );
     }
+
+    async verifyLoginSuccess(): Promise<void> {
+
+        await expect(
+            this.loggedInWelcome
+        ).toBeVisible({
+            timeout: 30_000
+        });
+    
+    }
+
+    async verifyRedirectedToLogin(): Promise<void> {
+
+        await this.waitForUrlToMatch(
+            /\/login\/index/i,
+            10_000
+        );
+    }
+
+    async login(
+        username: string,
+        password: string
+    ): Promise<void> {
+
+        await this.fillInput(
+            this.usernameInput,
+            username
+        );
+
+        await this.fillInput(
+            this.passwordInput,
+            password
+        );
+
+        await this.clickElement(
+            this.loginButton
+        );
+
+        await this.verifyLoginSuccess();
+    }
+
+    async verifyRequiredFieldErrorForUsername(): Promise<void> {
+
+        await this.validateElementVisible(
+            this.requiredFieldErrorForUsername
+        );
+    }
+    async verifyRequiredFieldErrorForPassword(): Promise<void> {
+        await this.validateElementVisible(
+            this.requiredFieldErrorForPassword
+        );
+    }    
+    
 
 }
 

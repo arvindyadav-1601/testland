@@ -31,7 +31,7 @@ export class MyWhamPage extends BasePage {
     // PAGE LOCATORS
     // =====================================================
 
-    readonly home: HomePage;
+    private readonly home: HomePage;
 
     readonly myWhamHeading: Locator;
 
@@ -56,7 +56,7 @@ export class MyWhamPage extends BasePage {
     // CONSTRUCTOR
     // =====================================================
 
-    constructor(page: Page) {
+    constructor(page: Page, home?: HomePage) {
 
         super(page);
 
@@ -65,7 +65,7 @@ export class MyWhamPage extends BasePage {
         // =================================================
 
         this.home =
-            new HomePage(page);
+            home ?? new HomePage(page);
 
         this.myWhamHeading =
             page.getByRole('heading', { name: 'My Wham', level: 1 });
