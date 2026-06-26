@@ -54,6 +54,11 @@ export class WhamAddEditModal extends BasePage {
 
     readonly expirationDateInput: Locator;
 
+    // The calendar popup rendered by gijgo's bootstrap4 datepicker.
+    // TODO: verify the exact class against the live DOM — gijgo typically uses
+    //       ".gj-picker-bootstrap" for the bootstrap4 theme container.
+    readonly expirationDatePickerContainer: Locator;
+
     readonly confidentialCheckbox: Locator;
 
     // =====================================================
@@ -81,6 +86,19 @@ export class WhamAddEditModal extends BasePage {
     readonly propertiesTableRows: Locator;
 
     readonly firstPropertyRowCheckbox: Locator;
+
+    // Header checkbox that selects / deselects all rows in the Properties table.
+    readonly propertiesSelectAllCheckbox: Locator;
+
+    // =====================================================
+    // MAINTENANCE / ALERT BANNER
+    // =====================================================
+
+    // Rendered by the AlertBanner controller — only present when an active
+    // banner is configured in the app. Dismissed via Bootstrap's data-dismiss.
+    readonly maintenanceBanner: Locator;
+
+    readonly maintenanceBannerCloseButton: Locator;
 
     // =====================================================
     // ERROR MODAL
@@ -126,9 +144,8 @@ export class WhamAddEditModal extends BasePage {
         // =================================================
 
         this.modalTitle =
-            page.getByRole(
-                "heading",
-                { name: "Add Message" }
+            page.locator(
+                "#searchLabel"
             );
 
         // =================================================
@@ -137,7 +154,7 @@ export class WhamAddEditModal extends BasePage {
 
         this.breadcrumb =
             page.locator(
-                "i.flaticon2-shelter"
+                "a.kt-subheader__breadcrumbs-home"
             );
 
         this.breadcrumbMyWhamLink =
@@ -176,57 +193,76 @@ export class WhamAddEditModal extends BasePage {
 
         this.messageTextbox =
             page.locator(
-                "textarea"
+                "textarea[name='Message']"
             );
 
         this.expirationDateInput =
-            page.getByPlaceholder(
-                "Select date"
+            page.locator(
+                "#expirationInput"
             );
 
+        // TODO: verify selector — gijgo bootstrap4 picker popup class
+        this.expirationDatePickerContainer =
+            page.locator(
+                ".gj-picker-bootstrap"
+            );
+
+        // Points to the actual checkbox input — enables BasePage
+        // checkCheckbox() / uncheckCheckbox() state-aware methods
         this.confidentialCheckbox =
-            page.getByText(
-                "Confidential"
+            page.locator(
+                "input[type='checkbox'][name='Confidential']"
             );
 
         // =================================================
         // REQUIRED INDICATORS
         // =================================================
 
+        // Scoped to each field's parent container so they remain
+        // independent — avoids positional first()/last() which
+        // breaks when error count changes
         this.levelRequiredIndicator =
             page.locator(
-                "li"
-            ).filter(
-                { hasText: "This value is required." }
-            ).first();
+                "select[name='MessageLevelId']"
+            ).locator(
+                "xpath=.."
+            ).locator(
+                "ul.parsley-errors-list li"
+            );
 
         this.typeRequiredIndicator =
             page.locator(
-                "li"
-            ).filter(
-                { hasText: "This value is required." }
-            ).last();
+                "select[name='MessageTypeId']"
+            ).locator(
+                "xpath=.."
+            ).locator(
+                "ul.parsley-errors-list li"
+            );
 
         // =================================================
         // PROPERTIES SECTION
         // =================================================
 
         this.propertiesNoRecordsMessage =
-            page.getByText(
+            page.locator(
+                "#propertyDisplay"
+            ).getByText(
                 "No records found",
                 { exact: true }
             );
 
         this.propertiesTablePropertyHeader =
-            page.getByText(
-                "Property #",
-                { exact: true }
+            page.locator(
+                "#propertyDisplay thead th"
+            ).filter(
+                { hasText: "Property #" }
             );
 
         this.propertiesTaxYearHeader =
-            page.getByText(
-                "Tax Year",
-                { exact: true }
+            page.locator(
+                "#propertyDisplay thead th"
+            ).filter(
+                { hasText: "Tax Year" }
             );
 
         this.propertiesAddButton =
@@ -242,15 +278,32 @@ export class WhamAddEditModal extends BasePage {
 
         this.propertiesTableRows =
             page.locator(
-                "tbody.kt-datatable__body tr"
+                "#propertyDisplay tbody tr"
             );
 
         this.firstPropertyRowCheckbox =
             page.locator(
-                "#propertyDisplay_row_1352430"
-            ).locator(
-                "td"
-            ).nth(1);
+                "#propertyDisplay tbody tr input[type='checkbox']"
+            ).nth(0);
+
+        this.propertiesSelectAllCheckbox =
+            page.locator(
+                "#propertyDisplay thead input[type='checkbox']"
+            );
+
+        // =================================================
+        // MAINTENANCE / ALERT BANNER
+        // =================================================
+
+        this.maintenanceBanner =
+            page.locator(
+                "#AlertBannerText"
+            );
+
+        this.maintenanceBannerCloseButton =
+            page.locator(
+                "#AlertBannerText [data-dismiss='alert']"
+            );
 
         // =================================================
         // ERROR MODAL
@@ -258,18 +311,20 @@ export class WhamAddEditModal extends BasePage {
 
         this.errorModalContainer =
             page.locator(
-                "//div[@id='errormessage']//div[contains(@class,'modal-content')]"
+                "#errormessage .modal-content"
             );
 
         this.errorModalMessage =
-            page.getByText(
-                "The Message must be assigned to a user and/or properties.",
-                { exact: true }
+            page.locator(
+                "#errormessageContent"
             );
 
         this.errorModalCloseButton =
             page.locator(
-                "button:has-text('Close')"
+                "#errormessage"
+            ).getByRole(
+                "button",
+                { name: "Close" }
             );
     }
 
@@ -352,6 +407,28 @@ export class WhamAddEditModal extends BasePage {
         );
     }
 
+    // Clears the expiration date field and presses Tab to commit the cleared
+    // state (which should also reset/disable the Reminder dropdown).
+    async clearExpirationDate(): Promise<void> {
+
+        await this.clearAndFill(
+            this.expirationDateInput,
+            ""
+        );
+
+        await this.pressTab(
+            this.expirationDateInput
+        );
+    }
+
+    // Clicks the expiration date input to trigger the datepicker calendar.
+    async openExpirationDatePicker(): Promise<void> {
+
+        await this.clickElement(
+            this.expirationDateInput
+        );
+    }
+
     async selectReminder(
         value: string
     ): Promise<void> {
@@ -362,24 +439,18 @@ export class WhamAddEditModal extends BasePage {
         );
     }
 
+    // Uses BasePage.checkCheckbox() — only checks if currently unchecked
     async enableConfidential(): Promise<void> {
 
-        await this.clickElement(
+        await this.checkCheckbox(
             this.confidentialCheckbox
         );
     }
 
-    // Purpose:
-    // Unchecks the confidential checkbox if currently checked.
-    // Uses the same toggle click as enableConfidential(); named
-    // separately for spec readability.
-    //
-    // Usage:
-    // await myWhamPage.addEditModal.disableConfidential();
-
+    // Uses BasePage.uncheckCheckbox() — only unchecks if currently checked
     async disableConfidential(): Promise<void> {
 
-        await this.clickElement(
+        await this.uncheckCheckbox(
             this.confidentialCheckbox
         );
     }
@@ -409,9 +480,28 @@ export class WhamAddEditModal extends BasePage {
         );
     }
 
+    // Clicks the header checkbox to select (or deselect) all property rows.
+    async selectAllPropertyTableRows(): Promise<void> {
+
+        await this.clickElement(
+            this.propertiesSelectAllCheckbox
+        );
+    }
+
     async getPropertiesRowCount(): Promise<number> {
 
         return await this.propertiesTableRows.count();
+    }
+
+    // =====================================================
+    // MAINTENANCE BANNER METHODS
+    // =====================================================
+
+    async clickMaintenanceBannerClose(): Promise<void> {
+
+        await this.clickElement(
+            this.maintenanceBannerCloseButton
+        );
     }
 
     // =====================================================

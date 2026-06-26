@@ -1,6 +1,6 @@
 import {
     Locator,
-    Page
+    Page,expect
 } from "@playwright/test";
 
 import { BasePage } from "../../BasePage";
@@ -111,7 +111,7 @@ export class WhamPropertyModal extends BasePage {
 
         this.modalOverlay =
             page.locator(
-                ".modal-backdrop.show, .modal-backdrop"
+                ".modal-backdrop"
             );
 
         // =================================================
@@ -134,7 +134,7 @@ export class WhamPropertyModal extends BasePage {
 
         this.propertyTypeDropdown =
             page.getByLabel(
-                'Property Number Type'
+                "Property Number Type"
             );
 
         // =================================================
@@ -142,16 +142,21 @@ export class WhamPropertyModal extends BasePage {
         // =================================================
 
         this.searchInput =
-        page.getByRole(
-            'dialog', { name: 'Select Properties' }
-            ).getByRole('textbox'            
-        );
+            page.getByRole(
+                "dialog",
+                { name: "Select Properties" }
+            ).getByRole(
+                "textbox"
+            );
 
         this.searchButton =
-        page.getByRole(
-            'button', { name: 'Search' }
-        );
-
+            page.getByRole(
+                "dialog",
+                { name: "Select Properties" }
+            ).getByRole(
+                "button",
+                { name: "Search" }
+            );
 
         // =================================================
         // RESULTS TABLE
@@ -159,107 +164,116 @@ export class WhamPropertyModal extends BasePage {
 
         this.propertySearchResults =
             page.locator(
-                "table[id$='propertySearchTable']"
-        );
+                "#propertySearchTable"
+            );
 
         this.firstPropertyRowData =
-        page.locator(
-            "tr[id^='propertySearchTable_row_']"
-            ).nth(0               
-            );
+            page.locator(
+                "tr[id^='propertySearchTable_row_']"
+            ).nth(0);
 
         // =================================================
         // RESULTS TABLE — COLUMN HEADERS
         // =================================================
 
         this.resultsPropertyHeader =
-        page.getByRole(
-            'dialog', { name: 'Select Properties' }
-        ).getByText(
-                'Property #'
+            page.getByRole(
+                "dialog",
+                { name: "Select Properties" }
+            ).getByText(
+                "Property #"
             );
 
         this.resultsTaxYearHeader =
-        page.getByRole(
-            'dialog', { name: 'Select Properties' }
-        ).getByText(
-            'Tax Year'
-        );
+            page.getByRole(
+                "dialog",
+                { name: "Select Properties" }
+            ).getByText(
+                "Tax Year"
+            );
 
         this.resultsCreationDateHeader =
-        page.getByRole(
-            'dialog', { name: 'Select Properties' }
-        ).getByText(
-            'Creation Date'
-        );
+            page.getByRole(
+                "dialog",
+                { name: "Select Properties" }
+            ).getByText(
+                "Creation Date"
+            );
 
         this.resultsCurrentHeader =
-        page.getByRole(
-            'dialog', { name: 'Select Properties' }
-        ).getByText(
-            'Current'
-        );
+            page.getByRole(
+                "dialog",
+                { name: "Select Properties" }
+            ).getByText(
+                "Current"
+            );
 
         this.resultsDescriptionHeader =
-        page.getByRole(
-            'dialog', { name: 'Select Properties' }
-        ).getByText(
-            'Description'
-        );
+            page.getByRole(
+                "dialog",
+                { name: "Select Properties" }
+            ).getByText(
+                "Description"
+            );
 
         // =================================================
         // RESULTS TABLE — CHECKBOXES
         // =================================================
 
         this.selectAllCheckbox =
-        page.locator(
-            "table[id='propertySearchTable'] thead[class='kt-datatable__head'] span span"
-        );
+            page.locator(
+                "#propertySearchTable thead input[type='checkbox']"
+            );
 
-        // Scoped to #propertySearchTable so these never resolve
-        // against another table on the page.
         this.firstPropertyCheckbox =
-        page.locator(
-            "tr[id='propertySearchTable_row_1352430'] span span"
-        );
+            page.locator(
+                "tr[id^='propertySearchTable_row_'] input[type='checkbox']"
+            ).nth(0);
 
         this.secondPropertyCheckbox =
-        page.locator(
-            "//tr[@id='propertySearchTable_row_1305929']//span//span"
-            );
+            page.locator(
+                "tr[id^='propertySearchTable_row_'] input[type='checkbox']"
+            ).nth(1);
 
         // =================================================
         // NO RECORDS
         // =================================================
 
         this.noRecordsFoundMessage =
-        page.getByRole(
-            'dialog', { name: 'Select Properties' }
-        ).getByText(
-            'No records found');
+            page.getByRole(
+                "dialog",
+                { name: "Select Properties" }
+            ).getByText(
+                "No records found"
+            );
 
         // =================================================
         // BUTTONS
         // =================================================
 
+        // Opens the property search dialog from the Add/Edit modal
         this.openPropertySearchButton =
-        page.getByRole(
-            'button', { name: 'Search' }
-        );
+            page.getByTitle(
+                "Add"
+            );
 
         this.saveButton =
-        page.getByRole(
-            'dialog', { name: 'Select Properties' }
-        ).getByRole(
-            'button', { name: 'Save' }
-        );
+            page.getByRole(
+                "dialog",
+                { name: "Select Properties" }
+            ).getByRole(
+                "button",
+                { name: "Save" }
+            );
 
         this.cancelButton =
-        page.getByRole(
-            'dialog', { name: 'Select Properties' }
-        ).getByRole(
-            'button', { name: 'Cancel' }
-        );
+            page.getByRole(
+                "dialog",
+                { name: "Select Properties" }
+            ).getByRole(
+                "button",
+                { name: "Cancel" }
+            );
     }
 
     // =====================================================
@@ -272,7 +286,6 @@ export class WhamPropertyModal extends BasePage {
             this.openPropertySearchButton
         );
 
-        // Wait (not assert) for the modal to be ready; the spec asserts.
         await this.waitForElementVisible(
             this.propertyModalContainer
         );
@@ -312,11 +325,28 @@ export class WhamPropertyModal extends BasePage {
             searchValue
         );
 
+        await this.searchInput.press('Enter');
+
+
         await this.clickElement(
             this.searchButton
         );
+
+        await this.waitForSpinnerToDisappear();
     }
 
+    async searchRealEstateProperty(
+        searchValue: string
+    ): Promise<void> {
+
+        await this.selectPropertyType(
+            "Real Estate"
+        );
+
+        await this.searchProperty(
+            searchValue
+        );
+    }
 
     // =====================================================
     // SELECTION METHODS
@@ -365,9 +395,14 @@ export class WhamPropertyModal extends BasePage {
     // TABLE UTILITIES
     // =====================================================
 
+    // Returns the number of result rows — scoped to tbody tr,
+    // not the table element itself (which would always return 1)
     async getResultsRowCount(): Promise<number> {
 
-        return await this.propertySearchResults.count();
+        return await this.propertySearchResults
+            .locator(
+                "tbody tr"
+            ).count();
     }
 
     async scrollPropertyResults(): Promise<void> {

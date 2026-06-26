@@ -119,18 +119,19 @@ export class BasePage {
     }
 
     /**
-     * Waits for the site-wide BlockUI spinner to disappear.
-     * Spinner DOM: <div class="blockui"><span class="kt-spinner kt-spinner--brand"></span></div>
+     * Waits for the site-wide page spinner to disappear.
+     * Spinner DOM: <div class="spinnerMask"></div> + <div class="spinner"></div>
+     * For KTDatatable table-level blocking, also covers .blockUI (jQuery BlockUI, capital UI).
      */
     async waitForSpinnerToDisappear(
         timeout: number = 30000
     ): Promise<void> {
 
-        const spinner = this.page.locator('.blockui');
+        const spinner = this.page.locator('.spinner, .spinnerMask');
 
-        if (await spinner.isVisible()) {
+        if (await spinner.first().isVisible()) {
 
-            await spinner.waitFor({
+            await spinner.first().waitFor({
                 state: 'hidden',
                 timeout
             });
@@ -421,7 +422,7 @@ export class BasePage {
 
     /**
      * Clicks the header "select all rows" checkbox.
-     * Locator: <input> inside <label aria-label="select or unselect all rows">
+     * aria-label set by nkSelectableTable: "select or unselect all rows"
      */
     async selectAllRows(
         tableLocator: Locator
@@ -552,6 +553,7 @@ export class BasePage {
 
     /**
      * Reads the current sort direction of a column.
+     * KTDatatable stores sort direction in data-sort attribute on <th>.
      * Returns 'asc', 'desc', or 'none'.
      */
     async getColumnSortOrder(
@@ -559,12 +561,12 @@ export class BasePage {
         columnName: string
     ): Promise<'asc' | 'desc' | 'none'> {
 
-        const classes = await tableLocator
+        const sort = await tableLocator
             .locator(`th[data-field="${columnName}"]`)
-            .getAttribute('class') ?? '';
+            .getAttribute('data-sort');
 
-        if (classes.includes('asc'))  return 'asc';
-        if (classes.includes('desc')) return 'desc';
+        if (sort === 'asc')  return 'asc';
+        if (sort === 'desc') return 'desc';
 
         return 'none';
     }
@@ -578,7 +580,7 @@ export class BasePage {
     ): Promise<void> {
 
         await tableLocator
-            .locator('.kt-datatable__pager-link-next')
+            .locator('.kt-datatable__pager-link--next')
             .click();
 
         await this.waitForSpinnerToDisappear();
@@ -589,7 +591,7 @@ export class BasePage {
     ): Promise<void> {
 
         await tableLocator
-            .locator('.kt-datatable__pager-link-prev')
+            .locator('.kt-datatable__pager-link--prev')
             .click();
 
         await this.waitForSpinnerToDisappear();
@@ -727,9 +729,8 @@ export class BasePage {
 
     /**
      * Waits for a toast/alert to appear.
-     * Pass an optional message string to wait for a specific toast.
-     * NOTE: Update the locator selector to match the app's actual
-     * toast element once you have the DOM.
+     * App uses toastr library — generates .toast elements inside
+     * .toast-top-center. Also covers Bootstrap .alert banners.
      */
     async waitForToast(
         message?: string,

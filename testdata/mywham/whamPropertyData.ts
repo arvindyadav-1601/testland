@@ -5,26 +5,26 @@ export const WhamPropertyData = {
     // =====================================================
 
     validRealEstateProperty:
-        "123456789",
+        "0100006B",
 
     secondRealEstateProperty:
-        "987654321",
+        "0100029",
 
     invalidRealEstateProperty:
-        "INVALID_RE_PROPERTY",
+        "12345",
 
     // =====================================================
     // PERSONAL PROPERTY
     // =====================================================
 
     validPersonalProperty:
-        "PP123456",
+        "P010003",
 
     secondPersonalProperty:
         "PP654321",
 
     invalidPersonalProperty:
-        "INVALID_PP_PROPERTY",
+        "12345",
 
     // =====================================================
     // OWNER SEARCH

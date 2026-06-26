@@ -1,303 +1,102 @@
-# LandNav Automation Framework
+# ⚡ Commands
 
-Playwright + TypeScript Automation Framework for LandNav applications.
-
----
-
-# Prerequisites
-
-Install the following:
-
-- Node.js (LTS recommended)
-- npm
-- Git
-
-Verify installation:
-
-```bash
-node -v
-npm -v
-git --version
-```
+| Purpose | Command |
+|-----------|---------|
+| Initial Setup | `npm run setup` |
+| Install Browsers | `npm run install:browsers` |
+| Run All Tests | `npm test` |
+| Run Tests in Chrome | `npm run test:chrome` |
+| Run Tests in Headed Mode | `npm run test:headed` |
+| Run Tests in Debug Mode | `npm run test:debug` |
+| Open Playwright Report | `npm run report` |
+| Generate Allure Report | `npm run allure:gen` |
+| Open Allure Report | `npm run allure:open` |
+| Generate and Open Allure Report | `npm run allure` |
+| Clean Reports | `npm run clean` |
 
 ---
 
-# Clone Repository
+# 🌍 Environments (QA1 / QA2 / Dev)
 
-```bash
-git clone <repository-url>
-cd landnav-automation
-```
+The target environment is selected with the `TEST_ENV` variable (`qa1` | `qa2` | `dev`).
+URLs and credentials live in the gitignored `.env` file (see `.env.example`).
 
----
+| Environment | URL |
+|-------------|-----|
+| qa1 | https://dev-qa1-cp.test.landnav.com/ |
+| qa2 | https://dev-qa2-cp.test.landnav.com/ |
+| dev | https://dev-cicd1-cp.test.landnav.com/ |
 
-# Initial Setup
+### Select the environment per run
 
-Installs all project dependencies and Playwright browsers.
+| Shell | Command |
+|-------|---------|
+| PowerShell | `$env:TEST_ENV='qa1'; npx playwright test` |
+| PowerShell (reset after) | `Remove-Item Env:TEST_ENV` |
+| Git Bash / Linux / macOS | `TEST_ENV=qa1 npx playwright test` |
+| Any (edit `.env`) | set `TEST_ENV=qa1` in `.env`, then `npm test` |
 
-```bash
-npm run setup
-```
+### npm shortcuts (Git Bash / Linux / macOS only — these use bash syntax)
 
-Equivalent to:
+| Purpose | Command |
+|---------|---------|
+| Run all tests on QA1 | `npm run test:qa1` |
+| Run all tests on QA2 | `npm run test:qa2` |
+| Run all tests on Dev | `npm run test:dev` |
 
-```bash
-npm install
-npx playwright install
-```
-
----
-
-# Install Playwright Browsers
-
-```bash
-npm run install:browsers
-```
-
-Equivalent to:
-
-```bash
-npx playwright install
-```
+> Note: the test output and reports label the authenticated project after the
+> active environment (e.g. `[qa1]`, `[qa2]`, `[dev]`) instead of `[chrome]`.
 
 ---
 
-# Run Tests
+# 🎯 Run Specific Tests
 
-Run all tests:
-
-```bash
-npm test
-```
-
-This automatically:
-
-1. Cleans previous reports
-2. Cleans previous test results
-3. Executes all tests
+| Purpose | Command |
+|-----------|---------|
+| Run by Test ID | `npx playwright test -g "TC_LNC_Login_033"` |
+| Run by File | `npx playwright test tests/login/login.spec.ts` |
+| Run by Line Number | `npx playwright test tests/login/login.spec.ts:45` |
 
 ---
 
-# Run Tests in Chrome
+# 🔧 Troubleshooting
 
-```bash
-npm run test:chrome
-```
-
----
-
-# Run Tests in Headed Mode
-
-```bash
-npm run test:headed
-```
+| Purpose | Command |
+|-----------|---------|
+| Install Dependencies | `npm install` |
+| Reinstall Browsers | `npx playwright install --force` |
+| Clean Reports | `npm run clean` |
+| Install Dependencies Again | `npm install` |
+| Reinstall Browsers Again | `npx playwright install` |
 
 ---
 
-# Run Tests in Debug Mode
+# 🚀 First-Time Setup
 
-```bash
-npm run test:debug
-```
-
----
-
-# Run a Specific Test
-
-Using test title:
-
-```bash
-npx playwright test -g "TC_LNC_Login_033"
-```
-
-Using file:
-
-```bash
-npx playwright test tests/login/login.spec.ts
-```
-
-Using line number:
-
-```bash
-npx playwright test tests/login/login.spec.ts:45
-```
+| Step | Command |
+|--------|---------|
+| Clone Repository | `git clone <repository-url>` |
+| Navigate to Project | `cd landnav-automation` |
+| Install Dependencies & Browsers | `npm run setup` |
 
 ---
 
-# View Playwright Report
+# 🔄 Daily Workflow
 
-```bash
-npm run report
-```
-
-Equivalent to:
-
-```bash
-npx playwright show-report
-```
+| Task | Command |
+|-------|---------|
+| Execute Tests | `npm test` |
+| Open Playwright Report | `npm run report` |
+| Generate Allure Report | `npm run allure:gen` |
+| Open Allure Report | `npm run allure:open` |
 
 ---
 
-# Allure Reporting
+# 🧹 Generated Folders
 
-## Generate Allure Report
-
-```bash
-npm run allure:gen
-```
-
-Equivalent to:
-
-```bash
-allure generate allure-results --clean -o allure-report
-```
-
----
-
-## Open Existing Allure Report
-
-```bash
-npm run allure:open
-```
-
-Equivalent to:
-
-```bash
-allure open allure-report
-```
-
----
-
-## Generate and Open Allure Report
-
-```bash
-npm run allure
-```
-
-Equivalent to:
-
-```bash
-allure serve allure-results
-```
-
----
-
-# Clean Reports and Results
-
-Deletes:
-
-- allure-results
-- allure-report
-- playwright-report
-- test-results
-
-```bash
-npm run clean
-```
-
----
-
-# Folder Structure
-
-```text
-project-root/
-│
-├── tests/
-├── pages/
-├── fixtures/
-├── utils/
-├── data/
-│
-├── allure-results/
-├── allure-report/
-├── playwright-report/
-├── test-results/
-│
-├── playwright.config.ts
-├── package.json
-└── README.md
-```
-
----
-
-# Typical Workflow
-
-## First Time Setup
-
-```bash
-git clone <repository-url>
-
-cd landnav-automation
-
-npm run setup
-```
-
----
-
-## Daily Execution
-
-Run tests:
-
-```bash
-npm test
-```
-
-View Playwright report:
-
-```bash
-npm run report
-```
-
-Generate Allure report:
-
-```bash
-npm run allure:gen
-```
-
-Open Allure report:
-
-```bash
-npm run allure:open
-```
-
----
-
-# Troubleshooting
-
-## Install Missing Dependencies
-
-```bash
-npm install
-```
-
-## Reinstall Browsers
-
-```bash
-npx playwright install --force
-```
-
-## Clear Everything and Start Fresh
-
-```bash
-npm run clean
-
-npm install
-
-npx playwright install
-```
-
----
-
-# Framework Features
-
-- Playwright + TypeScript
-- Page Object Model (POM)
-- Reusable BasePage
-- Custom Fixtures
-- Environment Configuration
-- Allure Reporting
-- Playwright HTML Reporting
-- Screenshot Capture
-- Video Recording
-- Trace Collection
-- Parallel Execution Support
+| Folder |
+|---------|
+| allure-results |
+| allure-report |
+| playwright-report |
+| test-results |

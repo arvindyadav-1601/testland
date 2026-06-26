@@ -7,7 +7,8 @@ node_modules/
 /playwright/.cache/
 /playwright/.auth/
 /allure-results/
-/.env/
+.env
+.env.local
 /.vscode/
 /.playwright-mcp/
-
+/.allure-report/

@@ -4,7 +4,15 @@
       "mcp__playwright__browser_click",
       "mcp__playwright__browser_select_option",
       "Bash(npx tsc *)",
-      "mcp__playwright__browser_close"
+      "mcp__playwright__browser_close",
+      "Bash(TEST_ENV=dev npx ts-node -e \"import {environment} from './utils/environment'; console.log\\(environment\\)\")",
+      "Bash(git check-ignore *)",
+      "Bash(npx playwright *)",
+      "Bash(TEST_ENV=dev npx playwright test --list)",
+      "Bash(git rm *)",
+      "Bash(TEST_ENV=qa2 npx playwright test --list)",
+      "Bash(TEST_ENV=qa1 npx playwright test tests/auth)",
+      "Bash(git add *)"
     ]
   }
 }

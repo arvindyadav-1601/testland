@@ -35,6 +35,12 @@ export class MyWhamPage extends BasePage {
 
     readonly myWhamHeading: Locator;
 
+    // Opens the Add Message full-page form from the My Wham listing toolbar.
+    // TODO: verify this locator against the actual My Wham listing page DOM —
+    //       use the inspector to confirm the exact selector if the Add button
+    //       does not have role="link" or name="Add".
+    readonly addNewWhamButton: Locator;
+
     // =====================================================
     // COMPONENTS
     // =====================================================
@@ -68,9 +74,17 @@ export class MyWhamPage extends BasePage {
             home ?? new HomePage(page);
 
         this.myWhamHeading =
-            page.getByRole('heading', { name: 'My Wham', level: 1 });
+            page.getByRole(
+                'heading',
+                { name: 'My Wham', level: 1 }
+            );
 
-;
+        // TODO: verify selector — expected to be the "Add" link in the My Wham
+        //       module toolbar that navigates to the Add Message page.
+        this.addNewWhamButton =
+            page.getByTitle(
+                'Add', { exact: true }
+            );
 
         // =================================================
         // COMPONENTS
@@ -107,6 +121,20 @@ export class MyWhamPage extends BasePage {
         // Outcome assertions belong in the spec, not the page object.
         await this.waitForElementVisible(
             this.myWhamHeading
+        );
+    }
+
+    // Navigates from the My Wham listing to the Add Message full-page form.
+    // Relies on addNewWhamButton — verify the locator TODO above if this fails.
+    async openAddMessagePage(): Promise<void> {
+
+        await this.clickElement(
+            this.addNewWhamButton
+        );
+
+        // Wait for the Add Message page to be ready (title/heading confirms load).
+        await this.waitForElementVisible(
+            this.addEditModal.modalTitle
         );
     }
 }

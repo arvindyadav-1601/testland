@@ -61,22 +61,19 @@ export class HomePage extends BasePage {
             );
 
         this.homeLink =
-            this.sidebarNavigation.getByLabel(
-                'Main Navigation')
-                .getByText
-                ('Home');
+            this.sidebarNavigation.getByText(
+                'Home'
+            );
 
         this.myWhamLink =
-            this.sidebarNavigation.getByLabel(
-                'Main Navigation')
-                .getByText
-                ('My Wham');
+            this.sidebarNavigation.getByText(
+                ('My Wham')
+            );
 
         this.myProcessesLink =
-            this.sidebarNavigation.getByLabel(
-                'Main Navigation')
-                .getByText
-                ('My Processes');
+            this.sidebarNavigation.getByText(
+                'My Processes'
+            );
 
         this.cashReceiptingLink =
             this.sidebarNavigation.getByRole(
