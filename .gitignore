@@ -5,10 +5,10 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
-/playwright/.auth/
+/.playwright/
 /allure-results/
 .env
 .env.local
 /.vscode/
 /.playwright-mcp/
-/.allure-report/
+/allure-report/
